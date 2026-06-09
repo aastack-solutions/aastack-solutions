@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Sora } from "next/font/google";
 import "./globals.css";
 import Aurora from "@/components/Aurora";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -21,8 +23,8 @@ const SITE_URL = "https://aastack.dev";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "AAStack — Build Smarter. Launch Faster. Rank Higher.",
-    template: "%s | AAStack",
+    default: "AAStack Solutions — Build Smarter. Launch Faster. Rank Higher.",
+    template: "%s | AAStack Solutions",
   },
   description:
     "AAStack helps businesses grow with custom AI solutions, modern web & mobile apps, and SEO that actually drives traffic.",
@@ -71,7 +73,9 @@ export default function RootLayout({
     >
       <body className="min-h-full bg-ink font-sans text-white antialiased">
         <Aurora />
+        <Navbar />
         {children}
+        <Footer />
       </body>
     </html>
   );

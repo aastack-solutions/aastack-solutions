@@ -106,9 +106,29 @@ body {
 }
 .animate-float { animation: float 7s ease-in-out infinite; }
 
+/* Logo / tech marquee */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 32s linear infinite;
+}
+.marquee-mask {
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+}
+
+/* Slow conic spin for decorative rings */
+@keyframes spin-slow {
+  to { transform: rotate(360deg); }
+}
+.animate-spin-slow { animation: spin-slow 24s linear infinite; }
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .animate-aurora, .animate-aurora-slow, .animate-float { animation: none !important; }
+  .animate-aurora, .animate-aurora-slow, .animate-float,
+  .animate-marquee, .animate-spin-slow { animation: none !important; }
 }
 
 /* Scrollbar */

@@ -1,11 +1,12 @@
+import Link from "next/link";
 import LinkedinIcon from "./LinkedinIcon";
 
 const LINKS = [
-  { label: "Services", href: "#services" },
-  { label: "Projects", href: "#projects" },
-  { label: "Case Studies", href: "#case-studies" },
-  { label: "About", href: "#about" },
-  { label: "Contact", href: "#contact" },
+  { label: "Services", href: "/services" },
+  { label: "Work", href: "/work" },
+  { label: "Case Studies", href: "/case-studies" },
+  { label: "About", href: "/about" },
+  { label: "Contact", href: "/#contact" },
 ];
 
 export default function Footer() {
@@ -14,14 +15,17 @@ export default function Footer() {
       <div className="mx-auto max-w-7xl px-5 py-12 sm:px-8">
         <div className="flex flex-col items-center gap-8 text-center md:flex-row md:items-start md:justify-between md:text-left">
           <div className="max-w-sm">
-            <a href="#home" className="inline-flex items-center gap-2.5">
+            <Link href="/" className="inline-flex items-center gap-2.5">
               <span className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-electric to-violet text-sm font-bold text-white">
                 AA
               </span>
               <span className="font-display text-lg font-bold tracking-tight">
-                AA<span className="font-medium text-electric-light">Stack</span>
+                AAStack{" "}
+                <span className="font-medium text-electric-light">
+                  Solutions
+                </span>
               </span>
-            </a>
+            </Link>
             <p className="mt-3 text-sm text-white/55">
               Build Smarter. Launch Faster. Rank Higher.
             </p>
@@ -31,12 +35,12 @@ export default function Footer() {
             <ul className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
               {LINKS.map((l) => (
                 <li key={l.href}>
-                  <a
+                  <Link
                     href={l.href}
                     className="text-sm text-white/65 transition-colors hover:text-electric-light"
                   >
                     {l.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -54,7 +58,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-10 border-t border-white/10 pt-6 text-center text-sm text-white/45">
-          © 2026 AAStack. All rights reserved.
+          © 2026 AAStack Solutions. All rights reserved.
         </div>
       </div>
     </footer>
