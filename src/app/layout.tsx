@@ -23,7 +23,7 @@ const SITE_URL = "https://aastack.dev";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "AAStack Solutions — Build Smarter. Launch Faster. Rank Higher.",
+    default: "AAStack Solutions | Build Smarter. Launch Faster. Rank Higher.",
     template: "%s | AAStack Solutions",
   },
   description:
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "AAStack" }],
   openGraph: {
-    title: "AAStack — Build Smarter. Launch Faster. Rank Higher.",
+    title: "AAStack | Build Smarter. Launch Faster. Rank Higher.",
     description:
       "Custom AI solutions, modern web & mobile apps, and SEO that drives real traffic.",
     url: SITE_URL,
@@ -49,14 +49,14 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "AAStack — Build Smarter. Launch Faster. Rank Higher.",
+    title: "AAStack | Build Smarter. Launch Faster. Rank Higher.",
     description:
       "Custom AI solutions, modern web & mobile apps, and SEO that drives real traffic.",
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#05060f",
+  themeColor: "#eef3fb",
   width: "device-width",
   initialScale: 1,
 };
@@ -71,7 +71,7 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} ${sora.variable} h-full scroll-smooth`}
     >
-      <body className="min-h-full bg-ink font-sans text-white antialiased">
+      <body className="min-h-full bg-ink font-sans text-navy antialiased">
         <Aurora />
         <Navbar />
         {children}

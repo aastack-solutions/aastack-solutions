@@ -7,7 +7,7 @@ import CTABand from "@/components/CTABand";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Meet AAStack — a team passionate about building great digital products with AI, modern web & mobile apps, and SEO that delivers real results.",
+    "Meet AAStack, a team passionate about building great digital products with AI, modern web & mobile apps, and SEO that delivers real results.",
 };
 
 export default function AboutPage() {
@@ -17,7 +17,7 @@ export default function AboutPage() {
         eyebrow="About AAStack Solutions"
         title={
           <>
-            We build <span className="text-gradient">growth</span>, not just
+            We build <span className="text-accent">growth</span>, not just
             products
           </>
         }

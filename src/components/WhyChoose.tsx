@@ -43,12 +43,12 @@ const REASONS = [
 
 export default function WhyChoose() {
   return (
-    <section className="relative overflow-hidden py-20 text-white sm:py-28">
+    <section className="relative overflow-hidden py-20 text-navy sm:py-28">
       <div
-        className="absolute inset-0 opacity-[0.05]"
+        className="absolute inset-0 opacity-[0.04]"
         style={{
           backgroundImage:
-            "radial-gradient(circle at 1px 1px, white 1px, transparent 0)",
+            "radial-gradient(circle at 1px 1px, rgba(11,31,77,0.9) 1px, transparent 0)",
           backgroundSize: "32px 32px",
         }}
         aria-hidden
@@ -56,26 +56,26 @@ export default function WhyChoose() {
 
       <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-electric-light">
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-electric">
             Why Choose AAStack
           </p>
           <h2 className="mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
-            We don&apos;t just build products —{" "}
-            <span className="text-gradient">we build growth.</span>
+            We don&apos;t just build products.{" "}
+            <span className="text-accent">We build growth.</span>
           </h2>
         </Reveal>
 
         <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {REASONS.map((r, i) => (
             <Reveal key={r.title} delay={(i % 3) * 0.08}>
-              <div className="group glass h-full rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:border-electric/40 hover:shadow-glow">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-electric/20 to-violet/20 text-electric-light ring-1 ring-white/10 transition-colors group-hover:from-electric group-hover:to-violet group-hover:text-white">
+              <div className="group card h-full rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:border-electric/40 hover:shadow-card-hover">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-electric/10 text-electric ring-1 ring-navy/10 transition-colors group-hover:bg-electric group-hover:text-white">
                   <r.icon size={22} />
                 </div>
                 <h3 className="mt-5 font-display text-lg font-semibold">
                   {r.title}
                 </h3>
-                <p className="mt-2 text-sm leading-relaxed text-white/65">
+                <p className="mt-2 text-sm leading-relaxed text-navy/65">
                   {r.body}
                 </p>
               </div>
@@ -84,9 +84,9 @@ export default function WhyChoose() {
         </div>
 
         <Reveal className="mt-12 text-center">
-          <p className="font-display text-xl font-medium text-white/90 sm:text-2xl">
+          <p className="font-display text-xl font-medium text-navy/90 sm:text-2xl">
             We turn your ideas into{" "}
-            <span className="text-electric-light">powerful digital solutions.</span>
+            <span className="text-electric">powerful digital solutions.</span>
           </p>
         </Reveal>
       </div>

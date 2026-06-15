@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 640" fill="none" role="img" aria-label="AI chatbot demo preview">
+  <rect width="1000" height="640" fill="#eef3fb"/>
+  <!-- chat window -->
+  <rect x="180" y="60" width="640" height="520" rx="26" fill="#ffffff"/>
+  <!-- header -->
+  <rect x="180" y="60" width="640" height="78" rx="26" fill="#0b1f4d"/>
+  <rect x="180" y="112" width="640" height="26" fill="#0b1f4d"/>
+  <circle cx="230" cy="99" r="20" fill="#3aa0ee"/>
+  <path d="M222 99 a8 8 0 0 1 16 0 a8 8 0 0 1 -16 0" fill="#ffffff"/>
+  <rect x="266" y="86" width="150" height="14" rx="7" fill="#ffffff"/>
+  <rect x="266" y="108" width="90" height="10" rx="5" fill="#3aa0ee"/>
+  <!-- bot bubble -->
+  <rect x="216" y="178" width="320" height="66" rx="20" fill="#f1f6fd"/>
+  <rect x="240" y="200" width="270" height="10" rx="5" fill="#0b1f4d" opacity="0.4"/>
+  <rect x="240" y="220" width="200" height="10" rx="5" fill="#0b1f4d" opacity="0.3"/>
+  <!-- user bubble -->
+  <rect x="520" y="266" width="270" height="54" rx="20" fill="#1f7fd6"/>
+  <rect x="546" y="288" width="218" height="10" rx="5" fill="#ffffff" opacity="0.85"/>
+  <!-- bot bubble 2 -->
+  <rect x="216" y="342" width="360" height="84" rx="20" fill="#f1f6fd"/>
+  <rect x="240" y="364" width="300" height="10" rx="5" fill="#0b1f4d" opacity="0.4"/>
+  <rect x="240" y="384" width="260" height="10" rx="5" fill="#0b1f4d" opacity="0.3"/>
+  <rect x="240" y="404" width="180" height="10" rx="5" fill="#0b1f4d" opacity="0.3"/>
+  <!-- quick replies -->
+  <rect x="216" y="446" width="130" height="36" rx="18" fill="#1f7fd6" opacity="0.12"/>
+  <rect x="240" y="459" width="82" height="10" rx="5" fill="#1f7fd6"/>
+  <rect x="360" y="446" width="150" height="36" rx="18" fill="#2563eb" opacity="0.12"/>
+  <rect x="384" y="459" width="102" height="10" rx="5" fill="#2563eb"/>
+  <!-- typing dots -->
+  <rect x="216" y="498" width="96" height="40" rx="20" fill="#f1f6fd"/>
+  <circle cx="244" cy="518" r="6" fill="#1f7fd6"/>
+  <circle cx="264" cy="518" r="6" fill="#1f7fd6" opacity="0.6"/>
+  <circle cx="284" cy="518" r="6" fill="#1f7fd6" opacity="0.3"/>
+  <!-- input -->
+  <rect x="216" y="556" width="490" height="0" />
+  <rect x="540" y="498" width="252" height="44" rx="22" fill="#0b1f4d"/>
+  <rect x="566" y="516" width="150" height="10" rx="5" fill="#ffffff" opacity="0.4"/>
+  <circle cx="760" cy="520" r="14" fill="#1f7fd6"/>
+  <rect x="788" y="600" width="150" height="28" rx="14" fill="#0b1f4d" opacity="0.08"/>
+  <text x="863" y="619" font-family="sans-serif" font-size="14" font-weight="700" fill="#0b1f4d" opacity="0.5" text-anchor="middle">DEMO PREVIEW</text>
+</svg>

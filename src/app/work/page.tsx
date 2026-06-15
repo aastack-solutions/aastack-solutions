@@ -6,7 +6,7 @@ import CTABand from "@/components/CTABand";
 export const metadata: Metadata = {
   title: "Our Work",
   description:
-    "A look at real products AAStack has designed, built, and shipped — AI tools, web apps, mobile apps, and SEO campaigns built to perform and scale.",
+    "A look at real products AAStack has designed, built, and shipped, including AI tools, web apps, mobile apps, and SEO campaigns built to perform and scale.",
 };
 
 export default function WorkPage() {
@@ -16,7 +16,7 @@ export default function WorkPage() {
         eyebrow="Our Work"
         title={
           <>
-            Work that <span className="text-gradient">speaks for itself</span>
+            Work that <span className="text-accent">speaks for itself</span>
           </>
         }
         subtitle="Every project we deliver is built to perform, scale, and impress. Here's a snapshot of what we've shipped."

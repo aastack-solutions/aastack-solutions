@@ -1,24 +1,18 @@
-// Fixed, full-page aurora backdrop shared by every section.
+// Fixed, full-page backdrop. A clean near-white canvas with a single, very
+// faint blue wash near the top so the page feels light and uncluttered.
 export default function Aurora() {
   return (
     <div
       aria-hidden
       className="pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-ink"
     >
-      {/* faint grid */}
-      <div className="absolute inset-0 grid-bg opacity-60" />
-
-      {/* drifting aurora blobs */}
-      <div className="absolute -top-48 -left-40 h-[44rem] w-[44rem] rounded-full bg-violet/25 blur-[150px] animate-aurora" />
-      <div className="absolute top-[22%] -right-48 h-[42rem] w-[42rem] rounded-full bg-electric/20 blur-[150px] animate-aurora-slow" />
       <div
-        className="absolute bottom-[-10%] left-1/4 h-[40rem] w-[40rem] rounded-full bg-cyan/15 blur-[160px] animate-aurora"
-        style={{ animationDelay: "-9s" }}
+        className="absolute inset-x-0 top-0 h-[36rem]"
+        style={{
+          background:
+            "radial-gradient(60% 100% at 50% 0%, rgba(31,127,214,0.08), transparent 70%)",
+        }}
       />
-
-      {/* grain + vignette */}
-      <div className="absolute inset-0 noise" />
-      <div className="absolute inset-0 bg-gradient-to-b from-ink/0 via-transparent to-ink/80" />
     </div>
   );
 }

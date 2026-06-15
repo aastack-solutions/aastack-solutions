@@ -8,7 +8,7 @@ import LinkedinIcon from "./LinkedinIcon";
 const SERVICES = ["AI", "Web & App", "SEO", "Other"];
 
 const inputClass =
-  "w-full rounded-xl border border-white/15 bg-white/[0.06] px-4 py-3 text-[0.95rem] text-white placeholder:text-white/40 outline-none transition-all focus:border-electric focus:bg-white/10 focus:ring-2 focus:ring-electric/30";
+  "w-full rounded-xl border border-navy/15 bg-white px-4 py-3 text-[0.95rem] text-navy placeholder:text-navy/40 outline-none transition-all focus:border-electric focus:ring-2 focus:ring-electric/20";
 
 export default function Contact() {
   const [sent, setSent] = useState(false);
@@ -21,23 +21,19 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="relative overflow-hidden py-20 text-white sm:py-28">
-      <div
-        className="absolute -top-32 right-0 h-96 w-96 rounded-full bg-violet/20 blur-3xl"
-        aria-hidden
-      />
+    <section id="contact" className="relative overflow-hidden py-20 text-navy sm:py-28">
       <div className="relative mx-auto max-w-6xl px-5 sm:px-8">
         <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
           {/* Left: copy */}
           <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-electric-light">
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-electric">
               Contact
             </p>
             <h2 className="mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
               Let&apos;s build something{" "}
-              <span className="text-gradient">great together.</span>
+              <span className="text-accent">great together.</span>
             </h2>
-            <p className="mt-5 max-w-md leading-relaxed text-white/70">
+            <p className="mt-5 max-w-md leading-relaxed text-navy/70">
               Tell us about your project and we&apos;ll get back to you within 24
               hours.
             </p>
@@ -45,9 +41,9 @@ export default function Contact() {
             <div className="mt-8 space-y-4">
               <a
                 href="mailto:hello@aastack.dev"
-                className="flex items-center gap-3 text-white/85 transition-colors hover:text-electric-light"
+                className="flex items-center gap-3 text-navy/85 transition-colors hover:text-electric"
               >
-                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/10">
+                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-electric/10 text-electric">
                   <Mail size={18} />
                 </span>
                 hello@aastack.dev
@@ -56,15 +52,15 @@ export default function Contact() {
                 href="https://linkedin.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 text-white/85 transition-colors hover:text-electric-light"
+                className="flex items-center gap-3 text-navy/85 transition-colors hover:text-electric"
               >
-                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/10">
+                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-electric/10 text-electric">
                   <LinkedinIcon size={18} />
                 </span>
                 LinkedIn
               </a>
-              <p className="flex items-center gap-3 text-white/60">
-                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/10">
+              <p className="flex items-center gap-3 text-navy/60">
+                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-electric/10 text-electric">
                   <Clock size={18} />
                 </span>
                 Replies within 24 hours
@@ -73,25 +69,25 @@ export default function Contact() {
           </div>
 
           {/* Right: form */}
-          <div className="glass-strong rounded-3xl p-6 sm:p-8">
+          <div className="card rounded-3xl p-6 sm:p-8">
             {sent ? (
               <motion.div
                 initial={{ opacity: 0, scale: 0.96 }}
                 animate={{ opacity: 1, scale: 1 }}
                 className="flex h-full min-h-[20rem] flex-col items-center justify-center text-center"
               >
-                <CheckCircle2 size={56} className="text-electric-light" />
+                <CheckCircle2 size={56} className="text-electric" />
                 <h3 className="mt-5 font-display text-2xl font-bold">
                   Message sent!
                 </h3>
-                <p className="mt-2 max-w-xs text-white/70">
+                <p className="mt-2 max-w-xs text-navy/70">
                   Thanks for reaching out. We&apos;ll get back to you within 24
                   hours.
                 </p>
                 <button
                   type="button"
                   onClick={() => setSent(false)}
-                  className="mt-6 rounded-full border border-white/20 px-5 py-2.5 text-sm font-semibold transition-colors hover:bg-white/10"
+                  className="mt-6 rounded-full border border-navy/20 px-5 py-2.5 text-sm font-semibold transition-colors hover:bg-navy/10"
                 >
                   Send another
                 </button>
@@ -128,8 +124,8 @@ export default function Contact() {
                         onClick={() => setService(s)}
                         className={`rounded-full px-4 py-2 text-sm font-medium transition-all ${
                           service === s
-                            ? "bg-electric text-white shadow-glow"
-                            : "bg-white/10 text-white/75 hover:bg-white/15"
+                            ? "bg-electric text-white shadow-soft"
+                            : "bg-navy/10 text-navy/75 hover:bg-navy/15"
                         }`}
                       >
                         {s}
@@ -144,14 +140,14 @@ export default function Contact() {
                     name="message"
                     required
                     rows={4}
-                    placeholder="Tell us about your project…"
+                    placeholder="Tell us about your project"
                     className={`${inputClass} resize-none`}
                   />
                 </Field>
 
                 <button
                   type="submit"
-                  className="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-electric to-violet px-6 py-3.5 text-base font-semibold text-white shadow-glow transition-all hover:shadow-glow-violet hover:brightness-110"
+                  className="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-electric px-6 py-3.5 text-base font-semibold text-white shadow-soft transition-colors hover:bg-electric/90"
                 >
                   Send
                   <Send
@@ -177,7 +173,7 @@ function Field({
 }) {
   return (
     <label className="block">
-      <span className="mb-2 block text-sm font-medium text-white/75">
+      <span className="mb-2 block text-sm font-medium text-navy/75">
         {label}
       </span>
       {children}

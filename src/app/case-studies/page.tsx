@@ -16,8 +16,8 @@ export default function CaseStudiesPage() {
         eyebrow="Case Studies"
         title={
           <>
-            Problem → Solution →{" "}
-            <span className="text-gradient">Result</span>
+            From problem to{" "}
+            <span className="text-accent">measurable result</span>
           </>
         }
         subtitle="A closer look at the challenges our clients faced, what we built, and the measurable impact it delivered."

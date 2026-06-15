@@ -1,33 +1,35 @@
 @import "tailwindcss";
 
 @theme {
-  /* Dark aurora palette */
-  --color-ink: #05060f;
-  --color-ink-soft: #0a0c1b;
-  --color-surface: #0e1124;
+  /* Light theme, logo blues on a clean white canvas */
+  --color-ink: #f7f9fd;        /* page background, clean near white */
+  --color-ink-soft: #ffffff;   /* soft sections and footer */
+  --color-surface: #ffffff;    /* cards */
+  --color-navy: #0b1f4d;       /* primary text, logo navy */
 
-  --color-electric: #38bdf8;
-  --color-electric-light: #7dd3fc;
-  --color-violet: #8b5cf6;
-  --color-violet-light: #a78bfa;
-  --color-cyan: #22d3ee;
+  --color-electric: #1f7fd6;   /* primary accent, deepened logo blue */
+  --color-electric-light: #3aa0ee;
+  --color-violet: #2563eb;     /* secondary accent, royal blue */
+  --color-violet-light: #4f86f7;
+  --color-cyan: #0ea5e0;
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-sora), ui-sans-serif, system-ui, sans-serif;
 
-  --shadow-glow: 0 0 60px -15px rgba(56, 189, 215, 0.55);
-  --shadow-glow-violet: 0 0 60px -16px rgba(139, 92, 246, 0.5);
-  --shadow-soft: 0 24px 70px -24px rgba(0, 0, 0, 0.75);
+  /* Soft, professional elevation, no neon glow */
+  --shadow-soft: 0 1px 2px rgba(11, 31, 77, 0.04), 0 10px 30px -18px rgba(11, 31, 77, 0.16);
+  --shadow-card: 0 1px 3px rgba(11, 31, 77, 0.05), 0 14px 34px -20px rgba(11, 31, 77, 0.18);
+  --shadow-card-hover: 0 2px 6px rgba(11, 31, 77, 0.07), 0 22px 48px -22px rgba(11, 31, 77, 0.24);
 }
 
 :root {
-  --background: #05060f;
-  --foreground: #e8ecf6;
+  --background: #f7f9fd;
+  --foreground: #0b1f4d;
 }
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 5.5rem;
+  scroll-padding-top: 6.5rem;
 }
 
 body {
@@ -42,42 +44,16 @@ body {
   font-family: var(--font-display);
 }
 
-/* Aurora glow text */
-.text-gradient {
-  background: linear-gradient(110deg, #7dd3fc, #a78bfa 48%, #22d3ee);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+/* Single solid accent, used sparingly on one heading word */
+.text-accent {
+  color: var(--color-electric);
 }
 
-/* Glass surfaces */
-.glass {
-  background: rgba(255, 255, 255, 0.025);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-}
-.glass-strong {
-  background: rgba(255, 255, 255, 0.045);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-}
-
-/* Subtle dot/grid backdrop */
-.grid-bg {
-  background-image:
-    linear-gradient(to right, rgba(125, 211, 252, 0.06) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(125, 211, 252, 0.06) 1px, transparent 1px);
-  background-size: 58px 58px;
-  -webkit-mask-image: radial-gradient(ellipse 90% 60% at 50% 0%, #000 30%, transparent 100%);
-  mask-image: radial-gradient(ellipse 90% 60% at 50% 0%, #000 30%, transparent 100%);
-}
-
-/* Film grain / noise overlay */
-.noise {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  opacity: 0.035;
+/* Clean white card surface, hover handled with Tailwind utilities */
+.card {
+  background: var(--color-surface);
+  border: 1px solid rgba(11, 31, 77, 0.08);
+  box-shadow: var(--shadow-card);
 }
 
 /* Hairline gradient divider */
@@ -86,61 +62,35 @@ body {
   background: linear-gradient(
     to right,
     transparent,
-    rgba(125, 211, 252, 0.35),
+    rgba(11, 31, 77, 0.12),
     transparent
   );
 }
 
-/* Aurora blob drift */
-@keyframes aurora {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(60px, -50px) scale(1.15); }
-  66% { transform: translate(-40px, 40px) scale(0.9); }
-}
-.animate-aurora { animation: aurora 22s ease-in-out infinite; }
-.animate-aurora-slow { animation: aurora 32s ease-in-out infinite; }
-
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-16px); }
-}
-.animate-float { animation: float 7s ease-in-out infinite; }
-
-/* Logo / tech marquee */
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-.animate-marquee {
-  animation: marquee 32s linear infinite;
-}
-.marquee-mask {
-  -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
-  mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
-}
-
-/* Slow conic spin for decorative rings */
-@keyframes spin-slow {
-  to { transform: rotate(360deg); }
-}
-.animate-spin-slow { animation: spin-slow 24s linear infinite; }
-
+/* Subtle scroll reveal handled in Reveal.tsx */
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  .animate-aurora, .animate-aurora-slow, .animate-float,
-  .animate-marquee, .animate-spin-slow { animation: none !important; }
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 /* Scrollbar */
-::-webkit-scrollbar { width: 11px; }
-::-webkit-scrollbar-track { background: #05060f; }
+::-webkit-scrollbar {
+  width: 11px;
+}
+::-webkit-scrollbar-track {
+  background: #f7f9fd;
+}
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(var(--color-electric), var(--color-violet));
+  background: rgba(11, 31, 77, 0.22);
   border-radius: 999px;
-  border: 2px solid #05060f;
+  border: 3px solid #f7f9fd;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(11, 31, 77, 0.32);
 }
 
 ::selection {
-  background: rgba(139, 92, 246, 0.35);
-  color: #fff;
+  background: rgba(31, 127, 214, 0.16);
+  color: #0b1f4d;
 }

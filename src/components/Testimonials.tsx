@@ -4,7 +4,7 @@ import Reveal from "./Reveal";
 const TESTIMONIALS = [
   {
     quote:
-      "AAStack delivered exactly what they promised — on time and beyond expectations. Our support load dropped overnight.",
+      "AAStack delivered exactly what they promised, on time and beyond expectations. Our support load dropped overnight.",
     name: "Sample Client",
     company: "SaaS Startup",
   },
@@ -27,10 +27,10 @@ export default function Testimonials() {
     <section className="py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-electric-light">
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-electric">
             Testimonials
           </p>
-          <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
+          <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-navy sm:text-4xl lg:text-5xl">
             What clients say
           </h2>
         </Reveal>
@@ -38,17 +38,17 @@ export default function Testimonials() {
         <div className="mt-14 grid gap-6 md:grid-cols-3">
           {TESTIMONIALS.map((t, i) => (
             <Reveal key={i} delay={i * 0.1}>
-              <figure className="glass flex h-full flex-col rounded-3xl p-7 transition-all duration-300 hover:-translate-y-1 hover:border-electric/40 hover:shadow-glow">
-                <Quote className="text-electric-light/40" size={34} />
-                <blockquote className="mt-4 flex-1 leading-relaxed text-white/80">
+              <figure className="card flex h-full flex-col rounded-3xl p-7 transition-all duration-300 hover:-translate-y-1 hover:border-electric/40 hover:shadow-card-hover">
+                <Quote className="text-electric/40" size={34} />
+                <blockquote className="mt-4 flex-1 leading-relaxed text-navy/80">
                   &ldquo;{t.quote}&rdquo;
                 </blockquote>
-                <div className="mt-6 flex items-center justify-between border-t border-white/10 pt-5">
+                <div className="mt-6 flex items-center justify-between border-t border-navy/10 pt-5">
                   <figcaption>
-                    <p className="font-display font-semibold text-white">
+                    <p className="font-display font-semibold text-navy">
                       {t.name}
                     </p>
-                    <p className="text-sm text-white/55">{t.company}</p>
+                    <p className="text-sm text-navy/55">{t.company}</p>
                   </figcaption>
                   <div className="flex gap-0.5">
                     {Array.from({ length: 5 }).map((_, s) => (

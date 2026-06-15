@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import LinkedinIcon from "./LinkedinIcon";
 
 const LINKS = [
@@ -11,22 +12,20 @@ const LINKS = [
 
 export default function Footer() {
   return (
-    <footer className="relative border-t border-white/10 bg-ink-soft/80 text-white backdrop-blur">
+    <footer className="relative border-t border-navy/10 bg-ink-soft/80 text-navy backdrop-blur">
       <div className="mx-auto max-w-7xl px-5 py-12 sm:px-8">
         <div className="flex flex-col items-center gap-8 text-center md:flex-row md:items-start md:justify-between md:text-left">
           <div className="max-w-sm">
-            <Link href="/" className="inline-flex items-center gap-2.5">
-              <span className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-electric to-violet text-sm font-bold text-white">
-                AA
-              </span>
-              <span className="font-display text-lg font-bold tracking-tight">
-                AAStack{" "}
-                <span className="font-medium text-electric-light">
-                  Solutions
-                </span>
-              </span>
+            <Link href="/" className="inline-flex items-center">
+              <Image
+                src="/logo-mark.png"
+                alt="AAStack Solutions"
+                width={218}
+                height={223}
+                className="h-14 w-auto object-contain"
+              />
             </Link>
-            <p className="mt-3 text-sm text-white/55">
+            <p className="mt-4 text-sm text-navy/55">
               Build Smarter. Launch Faster. Rank Higher.
             </p>
           </div>
@@ -37,7 +36,7 @@ export default function Footer() {
                 <li key={l.href}>
                   <Link
                     href={l.href}
-                    className="text-sm text-white/65 transition-colors hover:text-electric-light"
+                    className="text-sm text-navy/65 transition-colors hover:text-electric"
                   >
                     {l.label}
                   </Link>
@@ -51,13 +50,13 @@ export default function Footer() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="LinkedIn"
-            className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/10 transition-colors hover:bg-electric"
+            className="flex h-10 w-10 items-center justify-center rounded-xl bg-navy/[0.06] text-navy transition-colors hover:bg-electric hover:text-white"
           >
             <LinkedinIcon size={18} />
           </a>
         </div>
 
-        <div className="mt-10 border-t border-white/10 pt-6 text-center text-sm text-white/45">
+        <div className="mt-10 border-t border-navy/10 pt-6 text-center text-sm text-navy/45">
           © 2026 AAStack Solutions. All rights reserved.
         </div>
       </div>

@@ -1,10 +1,8 @@
 import {
-  CheckCircle2,
+  Check,
   Bot,
   Code2,
   TrendingUp,
-  AlertCircle,
-  Lightbulb,
   type LucideIcon,
 } from "lucide-react";
 import Reveal from "./Reveal";
@@ -60,21 +58,18 @@ const CASES: CaseStudy[] = [
   },
 ];
 
-const TAG_META: Record<string, { icon: LucideIcon; chip: string; glow: string }> = {
+const TAG_META: Record<string, { icon: LucideIcon; chip: string }> = {
   AI: {
     icon: Bot,
-    chip: "bg-electric/15 text-electric-light ring-electric/30",
-    glow: "from-electric/25",
+    chip: "bg-electric/10 text-electric ring-electric/20",
   },
   Web: {
     icon: Code2,
-    chip: "bg-violet/15 text-violet-light ring-violet/30",
-    glow: "from-violet/25",
+    chip: "bg-violet/10 text-violet ring-violet/20",
   },
   SEO: {
     icon: TrendingUp,
-    chip: "bg-amber-500/15 text-amber-300 ring-amber-400/30",
-    glow: "from-amber-500/25",
+    chip: "bg-amber-500/10 text-amber-600 ring-amber-400/20",
   },
 };
 
@@ -83,101 +78,87 @@ export default function CaseStudies() {
     <section id="case-studies" className="py-20 sm:py-28">
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-electric-light">
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-electric">
             Case Studies
           </p>
-          <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
-            Real problems, <span className="text-gradient">real results</span>
+          <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-navy sm:text-4xl lg:text-5xl">
+            Real problems, <span className="text-accent">real results</span>
           </h2>
-          <p className="mt-4 text-lg text-white/55">
+          <p className="mt-4 text-lg text-navy/55">
             A closer look at the challenges we solved and the measurable impact
             we delivered.
           </p>
         </Reveal>
 
-        <div className="mt-14 space-y-8">
+        <div className="mt-14 space-y-6 sm:mt-16">
           {CASES.map((c, i) => {
             const meta = TAG_META[c.tag];
             const Icon = meta.icon;
             return (
               <Reveal key={c.name} delay={0.05}>
-                <article className="group glass relative overflow-hidden rounded-3xl p-6 transition-all duration-300 hover:border-electric/30 sm:p-8">
-                  {/* corner glow */}
-                  <div
-                    className={`pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-gradient-to-br ${meta.glow} to-transparent opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100`}
-                    aria-hidden
-                  />
-
-                  {/* Header */}
-                  <div className="relative flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
-                    <div className="flex items-center gap-4">
-                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-electric to-violet text-white shadow-glow">
-                        <Icon size={22} />
-                      </div>
-                      <div>
-                        <div className="flex items-center gap-2.5">
-                          <span className="font-display text-xs font-bold text-white/35">
-                            CASE {String(i + 1).padStart(2, "0")}
-                          </span>
-                          <span
-                            className={`rounded-full px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wider ring-1 ring-inset ${meta.chip}`}
-                          >
-                            {c.tag}
-                          </span>
-                        </div>
-                        <h3 className="mt-1 font-display text-2xl font-bold text-white">
-                          {c.name}
-                        </h3>
-                      </div>
+                <article className="group card grid gap-8 rounded-3xl p-7 transition-all duration-300 hover:border-electric/30 hover:shadow-card-hover sm:p-9 lg:grid-cols-12 lg:gap-10">
+                  {/* Left: identity + headline metric */}
+                  <div className="lg:col-span-4">
+                    <div className="flex items-center gap-2.5">
+                      <span
+                        className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold uppercase tracking-wider ring-1 ring-inset ${meta.chip}`}
+                      >
+                        <Icon size={13} />
+                        {c.tag}
+                      </span>
+                      <span className="font-display text-xs font-bold text-navy/30">
+                        CASE {String(i + 1).padStart(2, "0")}
+                      </span>
                     </div>
 
-                    {/* Headline metric */}
-                    <div className="shrink-0 rounded-2xl border border-white/10 bg-white/[0.03] px-5 py-3 text-center">
-                      <p className="font-display text-3xl font-extrabold text-gradient sm:text-4xl">
+                    <h3 className="mt-3 font-display text-2xl font-bold tracking-tight text-navy">
+                      {c.name}
+                    </h3>
+
+                    <div className="mt-6">
+                      <p className="font-display text-5xl font-extrabold leading-none text-accent">
                         {c.metric.value}
                       </p>
-                      <p className="text-xs font-medium uppercase tracking-wider text-white/50">
+                      <p className="mt-2 text-sm font-medium text-navy/50">
                         {c.metric.label}
                       </p>
                     </div>
                   </div>
 
-                  <div className="hairline relative my-7" />
-
-                  {/* Body: challenge / solution / results */}
-                  <div className="relative grid gap-7 lg:grid-cols-3 lg:gap-8">
-                    <div>
-                      <p className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-white/40">
-                        <AlertCircle size={15} /> The Challenge
-                      </p>
-                      <p className="mt-3 text-sm leading-relaxed text-white/70">
-                        {c.challenge}
-                      </p>
+                  {/* Right: narrative + results */}
+                  <div className="lg:col-span-8 lg:border-l lg:border-navy/[0.08] lg:pl-10">
+                    <div className="grid gap-6 sm:grid-cols-2">
+                      <div>
+                        <p className="text-xs font-semibold uppercase tracking-wider text-navy/40">
+                          Challenge
+                        </p>
+                        <p className="mt-2 text-sm leading-relaxed text-navy/65">
+                          {c.challenge}
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-xs font-semibold uppercase tracking-wider text-electric">
+                          What we did
+                        </p>
+                        <p className="mt-2 text-sm leading-relaxed text-navy/65">
+                          {c.did}
+                        </p>
+                      </div>
                     </div>
 
-                    <div>
-                      <p className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-electric-light">
-                        <Lightbulb size={15} /> What We Did
+                    <div className="mt-6 border-t border-navy/[0.08] pt-5">
+                      <p className="text-xs font-semibold uppercase tracking-wider text-navy/40">
+                        Results
                       </p>
-                      <p className="mt-3 text-sm leading-relaxed text-white/70">
-                        {c.did}
-                      </p>
-                    </div>
-
-                    <div>
-                      <p className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-violet-light">
-                        <TrendingUp size={15} /> Results
-                      </p>
-                      <ul className="mt-3 space-y-2.5">
+                      <ul className="mt-3 flex flex-wrap gap-x-6 gap-y-2.5">
                         {c.results.map((r) => (
                           <li
                             key={r}
-                            className="flex items-start gap-2.5 text-sm font-medium text-white/90"
+                            className="flex items-center gap-2 text-sm font-medium text-navy/80"
                           >
-                            <CheckCircle2
-                              size={17}
-                              className="mt-0.5 shrink-0 text-electric-light"
-                            />
+                            <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-electric/10 text-electric">
+                              <Check size={12} strokeWidth={3} />
+                            </span>
                             {r}
                           </li>
                         ))}

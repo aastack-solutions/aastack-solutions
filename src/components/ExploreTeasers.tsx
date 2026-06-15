@@ -22,7 +22,7 @@ const ITEMS = [
     icon: LineChart,
     eyebrow: "Proof",
     title: "Case Studies",
-    desc: "Problem → solution → measurable result. See the impact we deliver.",
+    desc: "From the first problem to a measurable result. See the impact we deliver.",
   },
   {
     href: "/about",
@@ -38,13 +38,13 @@ export default function ExploreTeasers() {
     <section className="py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-electric-light">
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-electric">
             Explore
           </p>
-          <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
+          <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-navy sm:text-4xl lg:text-5xl">
             Everything you need, one click away
           </h2>
-          <p className="mt-4 text-lg text-white/55">
+          <p className="mt-4 text-lg text-navy/55">
             Dive deeper into what we offer and the results we deliver.
           </p>
         </Reveal>
@@ -54,28 +54,24 @@ export default function ExploreTeasers() {
             <Reveal key={it.href} delay={(i % 2) * 0.1}>
               <Link
                 href={it.href}
-                className="group glass relative flex h-full flex-col overflow-hidden rounded-3xl p-7 transition-all duration-300 hover:-translate-y-1.5 hover:border-electric/40 hover:shadow-glow"
+                className="group card relative flex h-full flex-col overflow-hidden rounded-3xl p-7 transition-all duration-300 hover:-translate-y-1 hover:border-electric/40 hover:shadow-card-hover"
               >
-                <div
-                  className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-electric/20 opacity-0 blur-2xl transition-opacity duration-300 group-hover:opacity-100"
-                  aria-hidden
-                />
                 <div className="relative flex items-center justify-between">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-electric to-violet text-white shadow-glow">
+                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-electric text-white shadow-soft">
                     <it.icon size={26} />
                   </div>
                   <ArrowUpRight
                     size={22}
-                    className="text-white/40 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-electric-light"
+                    className="text-navy/40 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-electric"
                   />
                 </div>
-                <p className="relative mt-6 text-xs font-semibold uppercase tracking-[0.2em] text-electric-light">
+                <p className="relative mt-6 text-xs font-semibold uppercase tracking-[0.2em] text-electric">
                   {it.eyebrow}
                 </p>
-                <h3 className="relative mt-1 font-display text-2xl font-bold text-white">
+                <h3 className="relative mt-1 font-display text-2xl font-bold text-navy">
                   {it.title}
                 </h3>
-                <p className="relative mt-2 text-white/60">{it.desc}</p>
+                <p className="relative mt-2 text-navy/60">{it.desc}</p>
               </Link>
             </Reveal>
           ))}

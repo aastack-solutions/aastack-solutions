@@ -29,10 +29,10 @@ export default function Process() {
     <section id="process" className="py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-electric-light">
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-electric">
             Our Process
           </p>
-          <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
+          <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-navy sm:text-4xl lg:text-5xl">
             A clear path from idea to launch
           </h2>
         </Reveal>
@@ -46,16 +46,16 @@ export default function Process() {
           <ol className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {STEPS.map((s, i) => (
               <Reveal as="li" key={s.title} delay={i * 0.12} className="relative text-center">
-                <div className="glass mx-auto flex h-14 w-14 items-center justify-center rounded-2xl text-electric-light shadow-soft">
+                <div className="card mx-auto flex h-14 w-14 items-center justify-center rounded-2xl text-electric shadow-soft">
                   <s.icon size={24} />
                 </div>
-                <span className="mt-4 inline-block font-display text-sm font-bold text-electric-light">
+                <span className="mt-4 inline-block font-display text-sm font-bold text-electric">
                   Step {i + 1}
                 </span>
-                <h3 className="mt-1 font-display text-lg font-semibold text-white">
+                <h3 className="mt-1 font-display text-lg font-semibold text-navy">
                   {s.title}
                 </h3>
-                <p className="mx-auto mt-2 max-w-[16rem] text-sm leading-relaxed text-white/55">
+                <p className="mx-auto mt-2 max-w-[16rem] text-sm leading-relaxed text-navy/55">
                   {s.body}
                 </p>
               </Reveal>
