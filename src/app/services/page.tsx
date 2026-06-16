@@ -27,7 +27,7 @@ export default function ServicesPage() {
             </span>
           </>
         }
-        subtitle="From intelligent automation to pixel-perfect products and rankings that convert. Here's how we drive your growth."
+        subtitle="From intelligent automation to pixel perfect products and rankings that convert. Here's how we drive your growth."
       >
         <Link
           href="/#contact"

@@ -95,36 +95,23 @@ export default function Navbar() {
           <Link
             href="/"
             aria-label="AAStack Solutions home"
-            className="group flex items-center gap-2.5"
+            className="group relative flex items-center"
           >
-            <span className="relative flex items-center">
-              <span
-                className={`absolute -inset-1.5 -z-10 rounded-full opacity-0 blur-md transition-opacity duration-300 group-hover:opacity-100 ${
-                  onDark ? "bg-white/20" : "bg-electric/20"
-                }`}
-              />
-              <Image
-                src="/logo-mark.png"
-                alt="AAStack Solutions"
-                width={218}
-                height={223}
-                priority
-                className={`h-11 w-auto object-contain transition-all duration-300 group-hover:scale-[1.04] lg:h-12 ${
-                  onDark ? "brightness-0 invert" : ""
-                }`}
-              />
-            </span>
             <span
-              className={`hidden text-[1.05rem] font-semibold tracking-tight transition-colors duration-300 sm:block ${
-                onDark ? "text-white" : "text-navy"
+              className={`absolute -inset-2 -z-10 rounded-full opacity-0 blur-md transition-opacity duration-300 group-hover:opacity-100 ${
+                onDark ? "bg-white/20" : "bg-electric/20"
               }`}
-            >
-              AAStack
-              <span className="bg-gradient-to-r from-electric to-violet bg-clip-text text-transparent">
-                {" "}
-                Solutions
-              </span>
-            </span>
+            />
+            <Image
+              src="/images/navbar-logo.png"
+              alt="AAStack Solutions"
+              width={368}
+              height={112}
+              priority
+              className={`h-9 w-auto object-contain transition-all duration-300 group-hover:scale-[1.03] lg:h-10 ${
+                onDark ? "brightness-0 invert" : ""
+              }`}
+            />
           </Link>
 
           {/* Desktop links */}
@@ -171,7 +158,9 @@ export default function Navbar() {
           {/* Right side */}
           <div className="flex items-center gap-2.5">
             <Link
-              href="/#contact"
+              href="https://calendly.com/malikaliyan-contact"
+              target="_blank"
+              rel="noopener noreferrer"
               className={`group relative hidden items-center gap-1.5 overflow-hidden rounded-full px-5 py-2.5 text-sm font-semibold transition-all md:inline-flex ${
                 onDark
                   ? "bg-white text-navy hover:shadow-[0_8px_30px_-8px_rgba(255,255,255,0.5)]"
@@ -260,7 +249,9 @@ export default function Navbar() {
                 className="pt-2"
               >
                 <Link
-                  href="/#contact"
+                  href="https://calendly.com/malikaliyan-contact"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-electric to-violet px-5 py-3 text-base font-semibold text-white shadow-soft"
                 >
                   Get a free consultation

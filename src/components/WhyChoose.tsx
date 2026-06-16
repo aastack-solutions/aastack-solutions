@@ -21,7 +21,7 @@ const REASONS = [
   },
   {
     icon: Cpu,
-    title: "Cutting-Edge Technology",
+    title: "Cutting Edge Technology",
     body: "AI, modern frameworks, and the latest tools. We build for today and tomorrow.",
   },
   {

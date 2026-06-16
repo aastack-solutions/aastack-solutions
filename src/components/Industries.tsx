@@ -11,14 +11,14 @@ import {
 import Reveal from "./Reveal";
 
 const INDUSTRIES = [
-  { icon: ShoppingBag, name: "E-commerce & Retail", desc: "Stores that convert and scale." },
-  { icon: HeartPulse, name: "Healthcare & Wellness", desc: "Secure, patient-friendly platforms." },
-  { icon: Wallet, name: "Finance & FinTech", desc: "Trusted, data-driven products." },
-  { icon: GraduationCap, name: "Education & E-learning", desc: "Engaging learning experiences." },
+  { icon: ShoppingBag, name: "Ecommerce & Retail", desc: "Stores that convert and scale." },
+  { icon: HeartPulse, name: "Healthcare & Wellness", desc: "Secure, patient friendly platforms." },
+  { icon: Wallet, name: "Finance & FinTech", desc: "Trusted, data driven products." },
+  { icon: GraduationCap, name: "Education & Elearning", desc: "Engaging learning experiences." },
   { icon: Building2, name: "Real Estate", desc: "Listings, portals & dashboards." },
   { icon: UtensilsCrossed, name: "Food & Restaurants", desc: "Ordering, delivery & booking." },
   { icon: Plane, name: "Travel & Logistics", desc: "Booking and tracking made simple." },
-  { icon: Rocket, name: "Startups & SaaS", desc: "From MVP to product-market fit." },
+  { icon: Rocket, name: "Startups & SaaS", desc: "From MVP to product market fit." },
 ];
 
 export default function Industries() {

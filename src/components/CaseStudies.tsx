@@ -3,6 +3,8 @@ import {
   Bot,
   Code2,
   TrendingUp,
+  Car,
+  ArrowUpRight,
   type LucideIcon,
 } from "lucide-react";
 import Reveal from "./Reveal";
@@ -18,58 +20,82 @@ type CaseStudy = {
 
 const CASES: CaseStudy[] = [
   {
-    name: "SmartChat AI",
+    name: "Drugstore Restaurant",
     tag: "AI",
-    metric: { value: "70%", label: "Queries automated" },
+    metric: { value: "24/7", label: "Bookings & menu help" },
     challenge:
-      "A growing business was overwhelmed with repetitive customer queries, causing slow response times and frustrated customers.",
-    did: "Built a custom AI chatbot integrated with their website that answered customer questions instantly, 24/7.",
+      "The restaurant relied on phone calls and walk ins for reservations. During busy hours, staff were tied up answering the same questions about the menu and table availability, and bookings were lost after closing time.",
+    did: "Built a custom AI chatbot for their website that recommends dishes based on each guest's taste and dietary needs, and lets visitors reserve a table in just a few messages, fully automated, day and night.",
     results: [
-      "70% of queries handled automatically",
-      "Response time reduced from hours to seconds",
-      "Customer satisfaction up significantly",
+      "Guests reserve a table without calling",
+      "Personalized menu recommendations on demand",
+      "Reservations captured 24/7, even after closing",
     ],
   },
   {
-    name: "ShopFlow",
+    name: "Barham Dental",
     tag: "Web",
-    metric: { value: "+40%", label: "Sales growth" },
+    metric: { value: "100", label: "Performance score" },
     challenge:
-      "An online store had an outdated, slow website and was losing sales due to poor user experience.",
-    did: "Redesigned the store with a fast, modern, mobile-friendly interface and a smooth checkout flow.",
+      "The clinic had a dated website with a confusing interface and almost no digital visibility, patients simply couldn't find it on Google when searching for a dentist nearby.",
+    did: "Rebuilt the website with a clean, fast, mobile friendly interface, optimized it for SEO, and set it up on Google Search Console so it gets properly indexed and starts ranking in search.",
     results: [
-      "Sales increased by 40%",
-      "Page load time cut by 60%",
-      "Lower cart abandonment rate",
+      "100/100 site performance score",
+      "Now discoverable on Google search",
+      "More patients finding the clinic online",
     ],
   },
   {
-    name: "RankBoost",
-    tag: "SEO",
-    metric: { value: "200%", label: "Traffic growth" },
+    name: "Carpool Pakistan",
+    tag: "App",
+    metric: { value: "60%", label: "Lower cost per rider" },
     challenge:
-      "A local business was invisible on Google, stuck on page 3 with almost no organic traffic.",
-    did: "Ran keyword research, fixed technical SEO, and optimized content for their target audience.",
+      "Solo rides on popular routes were expensive, and commuters heading the same way had no easy way to share a car and split the fare.",
+    did: "Built a carpooling platform that matches passengers traveling along the same route, so one trip can carry multiple riders and everyone shares the cost instead of paying for a full ride alone.",
     results: [
-      "Ranked #1 on Google for key terms",
-      "Organic traffic grew by 200%",
-      "More leads and calls every week",
+      "Multiple passengers matched per route",
+      "Fares split across riders",
+      "Lower cost for every commuter",
+    ],
+  },
+  {
+    name: "Google Business Profile SEO",
+    tag: "SEO",
+    metric: { value: "420%", label: "Profile growth" },
+    challenge:
+      "A local business's Google Business Profile was underused and barely visible, so it wasn't showing up when nearby customers searched for what they offered.",
+    did: "Took over and optimized the Google Business Profile end to end, categories, posts, photos, reviews, and local keywords, to put it in front of the right local audience.",
+    results: [
+      "420% growth on the business profile",
+      "Much higher visibility in local search",
+      "More calls and visits from nearby customers",
+    ],
+  },
+  {
+    name: "CityDental",
+    tag: "Web",
+    metric: { value: "24/7", label: "Online appointments" },
+    challenge:
+      "The dental clinic had no website at all, so prospective patients couldn't find information or book online, every single appointment had to go through a phone call.",
+    did: "Designed and built a modern website from scratch with a built-in appointment booking system, so patients can explore services and reserve a slot online anytime.",
+    results: [
+      "First ever website for the clinic",
+      "Patients book appointments online 24/7",
+      "Fewer missed calls and manual scheduling",
     ],
   },
 ];
 
-const TAG_META: Record<string, { icon: LucideIcon; chip: string }> = {
-  AI: {
-    icon: Bot,
-    chip: "bg-electric/10 text-electric ring-electric/20",
-  },
-  Web: {
-    icon: Code2,
-    chip: "bg-violet/10 text-violet ring-violet/20",
-  },
+type TagStyle = { icon: LucideIcon; chip: string; accent: string };
+
+const TAG_META: Record<string, TagStyle> = {
+  AI: { icon: Bot, chip: "bg-electric/10 text-electric", accent: "text-electric" },
+  Web: { icon: Code2, chip: "bg-violet/10 text-violet", accent: "text-violet" },
+  App: { icon: Car, chip: "bg-cyan/10 text-cyan", accent: "text-cyan" },
   SEO: {
     icon: TrendingUp,
-    chip: "bg-amber-500/10 text-amber-600 ring-amber-400/20",
+    chip: "bg-amber-500/10 text-amber-600",
+    accent: "text-amber-600",
   },
 };
 
@@ -90,85 +116,98 @@ export default function CaseStudies() {
           </p>
         </Reveal>
 
-        <div className="mt-14 space-y-6 sm:mt-16">
+        <div className="mt-14 grid gap-6 sm:mt-16 lg:grid-cols-2">
           {CASES.map((c, i) => {
             const meta = TAG_META[c.tag];
             const Icon = meta.icon;
             return (
-              <Reveal key={c.name} delay={0.05}>
-                <article className="group card grid gap-8 rounded-3xl p-7 transition-all duration-300 hover:border-electric/30 hover:shadow-card-hover sm:p-9 lg:grid-cols-12 lg:gap-10">
-                  {/* Left: identity + headline metric */}
-                  <div className="lg:col-span-4">
-                    <div className="flex items-center gap-2.5">
+              <Reveal key={c.name} delay={(i % 2) * 0.08}>
+                <article className="group card flex h-full flex-col rounded-3xl p-6 transition-all duration-300 hover:-translate-y-1 hover:border-navy/15 hover:shadow-card-hover sm:p-8">
+                  {/* Header: identity + metric */}
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="flex items-center gap-3.5">
                       <span
-                        className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold uppercase tracking-wider ring-1 ring-inset ${meta.chip}`}
+                        className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl ${meta.chip}`}
                       >
-                        <Icon size={13} />
-                        {c.tag}
+                        <Icon size={22} />
                       </span>
-                      <span className="font-display text-xs font-bold text-navy/30">
-                        CASE {String(i + 1).padStart(2, "0")}
-                      </span>
+                      <div>
+                        <h3 className="font-display text-lg font-bold leading-tight tracking-tight text-navy sm:text-xl">
+                          {c.name}
+                        </h3>
+                        <span className="text-xs font-semibold uppercase tracking-wider text-navy/40">
+                          {c.tag} · Case {String(i + 1).padStart(2, "0")}
+                        </span>
+                      </div>
                     </div>
-
-                    <h3 className="mt-3 font-display text-2xl font-bold tracking-tight text-navy">
-                      {c.name}
-                    </h3>
-
-                    <div className="mt-6">
-                      <p className="font-display text-5xl font-extrabold leading-none text-accent">
+                    <div className="shrink-0 text-right">
+                      <p
+                        className={`font-display text-3xl font-extrabold leading-none sm:text-4xl ${meta.accent}`}
+                      >
                         {c.metric.value}
                       </p>
-                      <p className="mt-2 text-sm font-medium text-navy/50">
+                      <p className="mt-1.5 text-[0.7rem] font-medium leading-tight text-navy/45">
                         {c.metric.label}
                       </p>
                     </div>
                   </div>
 
-                  {/* Right: narrative + results */}
-                  <div className="lg:col-span-8 lg:border-l lg:border-navy/[0.08] lg:pl-10">
-                    <div className="grid gap-6 sm:grid-cols-2">
-                      <div>
-                        <p className="text-xs font-semibold uppercase tracking-wider text-navy/40">
-                          Challenge
-                        </p>
-                        <p className="mt-2 text-sm leading-relaxed text-navy/65">
-                          {c.challenge}
-                        </p>
-                      </div>
-                      <div>
-                        <p className="text-xs font-semibold uppercase tracking-wider text-electric">
-                          What we did
-                        </p>
-                        <p className="mt-2 text-sm leading-relaxed text-navy/65">
-                          {c.did}
-                        </p>
-                      </div>
-                    </div>
+                  <div className="my-6 hairline" />
 
-                    <div className="mt-6 border-t border-navy/[0.08] pt-5">
-                      <p className="text-xs font-semibold uppercase tracking-wider text-navy/40">
-                        Results
+                  {/* Narrative */}
+                  <div className="space-y-4">
+                    <div>
+                      <p className="text-[0.7rem] font-bold uppercase tracking-wider text-navy/35">
+                        Challenge
                       </p>
-                      <ul className="mt-3 flex flex-wrap gap-x-6 gap-y-2.5">
-                        {c.results.map((r) => (
-                          <li
-                            key={r}
-                            className="flex items-center gap-2 text-sm font-medium text-navy/80"
-                          >
-                            <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-electric/10 text-electric">
-                              <Check size={12} strokeWidth={3} />
-                            </span>
-                            {r}
-                          </li>
-                        ))}
-                      </ul>
+                      <p className="mt-1.5 text-sm leading-relaxed text-navy/65">
+                        {c.challenge}
+                      </p>
+                    </div>
+                    <div>
+                      <p
+                        className={`text-[0.7rem] font-bold uppercase tracking-wider ${meta.accent}`}
+                      >
+                        What we did
+                      </p>
+                      <p className="mt-1.5 text-sm leading-relaxed text-navy/65">
+                        {c.did}
+                      </p>
                     </div>
                   </div>
+
+                  {/* Results */}
+                  <ul className="mt-6 flex flex-wrap gap-2 border-t border-navy/[0.07] pt-5">
+                    {c.results.map((r) => (
+                      <li
+                        key={r}
+                        className="inline-flex items-center gap-1.5 rounded-full bg-navy/[0.035] px-3 py-1.5 text-xs font-medium text-navy/75 ring-1 ring-inset ring-navy/[0.06]"
+                      >
+                        <Check size={12} strokeWidth={3} className="text-electric" />
+                        {r}
+                      </li>
+                    ))}
+                  </ul>
                 </article>
               </Reveal>
             );
           })}
+
+          {/* Closing call to action tile */}
+          <Reveal delay={0.08} className="lg:col-span-2">
+            <a
+              href="/#contact"
+              className="group flex flex-col items-center justify-between gap-4 rounded-3xl border border-dashed border-navy/15 bg-navy/[0.015] p-7 text-center transition-colors hover:border-electric/40 hover:bg-electric/[0.03] sm:flex-row sm:text-left"
+            >
+              <p className="font-display text-lg font-semibold text-navy">
+                Your business could be the next success story.
+              </p>
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-electric px-5 py-2.5 text-sm font-semibold text-white shadow-soft transition-transform group-hover:translate-x-0.5">
+                Start your project
+                <ArrowUpRight size={16} />
+              </span>
+            </a>
+          </Reveal>
         </div>
       </div>
     </section>

@@ -12,7 +12,7 @@ const TESTIMONIALS = [
     quote:
       "The new site is fast, beautiful, and converting. Communication was clear and the turnaround was impressive.",
     name: "Sample Client",
-    company: "E-commerce Brand",
+    company: "Ecommerce Brand",
   },
   {
     quote:

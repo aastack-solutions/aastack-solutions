@@ -4,7 +4,6 @@ import WhyChoose from "@/components/WhyChoose";
 import Problems from "@/components/Problems";
 import Services from "@/components/Services";
 import Projects from "@/components/Projects";
-import CaseStudies from "@/components/CaseStudies";
 import Industries from "@/components/Industries";
 import About from "@/components/About";
 import Testimonials from "@/components/Testimonials";
@@ -21,7 +20,6 @@ export default function Home() {
       <Problems />
       <Services />
       <Projects />
-      <CaseStudies />
       <Industries />
       <About />
       <Testimonials />

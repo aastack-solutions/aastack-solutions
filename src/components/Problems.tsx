@@ -25,7 +25,7 @@ const PAIRS = [
   {
     problem: "I've been let down by developers before.",
     solution:
-      "Clear communication, on-time delivery, and quality you can count on, every single time.",
+      "Clear communication, on time delivery, and quality you can count on, every single time.",
   },
 ];
 

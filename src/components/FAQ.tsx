@@ -20,15 +20,15 @@ const FAQS = [
   },
   {
     q: "Do you offer SEO and ongoing support?",
-    a: "Absolutely. Beyond launch we offer SEO, performance tuning, security updates, and feature improvements. Think of us as a long-term partner, not a one-time vendor.",
+    a: "Absolutely. Beyond launch we offer SEO, performance tuning, security updates, and feature improvements. Think of us as a long term partner, not a one time vendor.",
   },
   {
     q: "Do you work with startups and small businesses?",
-    a: "Definitely. From first-time founders with an idea to established businesses scaling up, we tailor the approach and budget to where you are, and grow with you.",
+    a: "Definitely. From first time founders with an idea to established businesses scaling up, we tailor the approach and budget to where you are, and grow with you.",
   },
   {
     q: "What happens after my project launches?",
-    a: "We monitor, maintain, and optimize. You get post-launch support, performance reports, and a direct line to us whenever you need changes or have questions.",
+    a: "We monitor, maintain, and optimize. You get after launch support, performance reports, and a direct line to us whenever you need changes or have questions.",
   },
 ];
 

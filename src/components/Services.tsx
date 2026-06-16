@@ -23,7 +23,7 @@ const SERVICES = [
       "Business & portfolio websites",
       "Web applications, dashboards & portals",
       "Mobile apps for Android & iOS",
-      "E-commerce stores that convert",
+      "Ecommerce stores that convert",
     ],
   },
   {
@@ -32,7 +32,7 @@ const SERVICES = [
     tagline: "Get found by the people already searching for you.",
     points: [
       "Keyword research & strategy",
-      "On-page & technical SEO",
+      "On page & technical SEO",
       "Content optimization",
       "Monthly performance reports",
     ],
@@ -52,7 +52,7 @@ export default function Services() {
               Three ways we drive your growth
             </h2>
             <p className="mt-4 text-lg leading-relaxed text-navy/55">
-              From intelligent automation to pixel-perfect products and rankings
+              From intelligent automation to pixel perfect products and rankings
               that convert, all under one roof. One team, accountable end to end.
             </p>
           </Reveal>
