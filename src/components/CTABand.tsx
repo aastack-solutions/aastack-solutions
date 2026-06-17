@@ -1,6 +1,7 @@
-import { ArrowRight } from "lucide-react";
+﻿import { ArrowRight } from "lucide-react";
 import Reveal from "./Reveal";
 import Button from "./Button";
+import { CALENDLY_URL } from "@/data/site";
 
 type CTABandProps = {
   title?: string;
@@ -22,11 +23,11 @@ export default function CTABand({
             <p className="mx-auto mt-4 max-w-xl text-lg text-navy/65">
               {subtitle}
             </p>
-            <Button href="/#contact" variant="primary" size="lg" className="mt-8">
+            <Button href={CALENDLY_URL} variant="primary" size="lg" className="mt-8">
               Get a free consultation
               <ArrowRight
                 size={18}
-                className="transition-transform duration-300 group-hover:translate-x-1"
+                className="transition-transform duration-300 group-hov:translate-x-1"
               />
             </Button>
           </div>

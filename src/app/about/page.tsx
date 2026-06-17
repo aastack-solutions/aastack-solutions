@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import PageHero from "@/components/PageHero";
@@ -33,12 +33,12 @@ export default function AboutPage() {
       >
         <Link
           href="/services"
-          className="group inline-flex items-center justify-center gap-2 rounded-full bg-electric px-7 py-3.5 text-base font-semibold text-white shadow-soft transition-all hover:bg-electric/90"
+          className="group inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-electric to-violet px-7 py-3.5 text-base font-semibold text-white shadow-[0_10px_28px_-10px_var(--color-electric)] transition-all hover:-translate-y-0.5 hover:shadow-[0_16px_36px_-10px_var(--color-electric)]"
         >
           Explore our services
           <ArrowRight
             size={18}
-            className="transition-transform group-hover:translate-x-1"
+            className="transition-transform group-hov:translate-x-1"
           />
         </Link>
       </PageHero>

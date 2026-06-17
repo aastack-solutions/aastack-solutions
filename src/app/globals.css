@@ -1,5 +1,22 @@
 @import "tailwindcss";
 
+/* ─────────────────────────────────────────────────────────────
+   Touch-friendly hover.
+   Phones/tablets have no :hover, so the same lift / colour effects
+   are triggered when a card scrolls into the centre of the screen.
+   MobileHover.tsx adds `.is-active` to `.group` elements while they
+   are centred in the viewport (only on no-hover devices).
+
+   Use these exactly like Tailwind's own variants:
+     hov:        an element's own hover  (replaces hover:)
+     group-hov:  a child of a hovered/active .group (replaces group-hover:)
+   ──────────────────────────────────────────────────────────── */
+@custom-variant hov (&:hover, &.is-active);
+@custom-variant group-hov (
+  &:is(:where(.group):hover *),
+  &:is(:where(.group).is-active *)
+);
+
 @theme {
   /* Light theme, logo blues on a clean white canvas */
   --color-ink: #f7f9fd;        /* page background, clean near white */
@@ -67,10 +84,51 @@ body {
   );
 }
 
+/* Horizontal skill marquee (used in the About section) */
+@keyframes marquee-x {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-x var(--marquee-duration, 48s) linear infinite;
+}
+.marquee-track-reverse {
+  animation-direction: reverse;
+}
+.marquee-group:hover .marquee-track {
+  animation-play-state: paused;
+}
+.marquee-mask {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 90px,
+    #000 calc(100% - 90px),
+    transparent
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 90px,
+    #000 calc(100% - 90px),
+    transparent
+  );
+}
+
 /* Subtle scroll reveal handled in Reveal.tsx */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+  .marquee-track {
+    animation: none;
   }
 }
 

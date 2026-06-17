@@ -1,4 +1,4 @@
-import Image from "next/image";
+﻿import Image from "next/image";
 import type { IconType } from "react-icons";
 import {
   SiReact,
@@ -55,7 +55,7 @@ function Badge({ tech, lift }: { tech: Tech; lift?: boolean }) {
     >
       <tech.icon
         aria-hidden
-        className="h-7 w-7 transition-transform duration-300 group-hover:scale-110 sm:h-8 sm:w-8"
+        className="h-7 w-7 transition-transform duration-300 group-hov:scale-110 sm:h-8 sm:w-8"
         style={{ color: tech.color }}
       />
       <span className="sr-only">{tech.label}</span>

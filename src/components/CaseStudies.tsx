@@ -1,4 +1,4 @@
-import {
+﻿import {
   Check,
   Bot,
   Code2,
@@ -7,7 +7,8 @@ import {
   ArrowUpRight,
   type LucideIcon,
 } from "lucide-react";
-import Reveal from "./Reveal";
+import Reveal, { RevealGroup } from "./Reveal";
+import { CALENDLY_URL } from "@/data/site";
 
 type CaseStudy = {
   name: string;
@@ -116,37 +117,37 @@ export default function CaseStudies() {
           </p>
         </Reveal>
 
-        <div className="mt-14 grid gap-6 sm:mt-16 lg:grid-cols-2">
+        <RevealGroup className="mt-14 grid gap-6 sm:mt-16 lg:grid-cols-2">
           {CASES.map((c, i) => {
             const meta = TAG_META[c.tag];
             const Icon = meta.icon;
             return (
               <Reveal key={c.name} delay={(i % 2) * 0.08}>
-                <article className="group card flex h-full flex-col rounded-3xl p-6 transition-all duration-300 hover:-translate-y-1 hover:border-navy/15 hover:shadow-card-hover sm:p-8">
+                <article className="group card flex h-full flex-col rounded-3xl p-6 transition-all duration-300 hov:-translate-y-1 hov:border-navy/15 hov:shadow-card-hover sm:p-8">
                   {/* Header: identity + metric */}
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="flex items-center gap-3.5">
+                  <div className="flex items-start justify-between gap-3 sm:gap-4">
+                    <div className="flex min-w-0 items-center gap-3 sm:gap-3.5">
                       <span
-                        className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl ${meta.chip}`}
+                        className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl sm:h-12 sm:w-12 ${meta.chip}`}
                       >
                         <Icon size={22} />
                       </span>
-                      <div>
-                        <h3 className="font-display text-lg font-bold leading-tight tracking-tight text-navy sm:text-xl">
+                      <div className="min-w-0">
+                        <h3 className="font-display text-base font-bold leading-tight tracking-tight text-navy break-words sm:text-xl">
                           {c.name}
                         </h3>
-                        <span className="text-xs font-semibold uppercase tracking-wider text-navy/40">
-                          {c.tag} · Case {String(i + 1).padStart(2, "0")}
+                        <span className="text-[0.7rem] font-semibold uppercase tracking-wider text-navy/40 sm:text-xs">
+                          {c.tag} Â· Case {String(i + 1).padStart(2, "0")}
                         </span>
                       </div>
                     </div>
                     <div className="shrink-0 text-right">
                       <p
-                        className={`font-display text-3xl font-extrabold leading-none sm:text-4xl ${meta.accent}`}
+                        className={`font-display text-2xl font-extrabold leading-none sm:text-4xl ${meta.accent}`}
                       >
                         {c.metric.value}
                       </p>
-                      <p className="mt-1.5 text-[0.7rem] font-medium leading-tight text-navy/45">
+                      <p className="mt-1.5 max-w-[5.5rem] text-[0.7rem] font-medium leading-tight text-navy/45 sm:max-w-none">
                         {c.metric.label}
                       </p>
                     </div>
@@ -196,19 +197,21 @@ export default function CaseStudies() {
           {/* Closing call to action tile */}
           <Reveal delay={0.08} className="lg:col-span-2">
             <a
-              href="/#contact"
-              className="group flex flex-col items-center justify-between gap-4 rounded-3xl border border-dashed border-navy/15 bg-navy/[0.015] p-7 text-center transition-colors hover:border-electric/40 hover:bg-electric/[0.03] sm:flex-row sm:text-left"
+              href={CALENDLY_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex flex-col items-center justify-between gap-4 rounded-3xl border border-dashed border-navy/15 bg-navy/[0.015] p-7 text-center transition-colors hov:border-electric/40 hov:bg-electric/[0.03] sm:flex-row sm:text-left"
             >
               <p className="font-display text-lg font-semibold text-navy">
                 Your business could be the next success story.
               </p>
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-electric px-5 py-2.5 text-sm font-semibold text-white shadow-soft transition-transform group-hover:translate-x-0.5">
+              <span className="inline-flex items-center gap-1.5 rounded-2xl bg-electric px-5 py-2.5 text-sm font-semibold text-white shadow-soft transition-transform group-hov:translate-x-0.5">
                 Start your project
                 <ArrowUpRight size={16} />
               </span>
             </a>
           </Reveal>
-        </div>
+        </RevealGroup>
       </div>
     </section>
   );

@@ -1,4 +1,4 @@
-import {
+﻿import {
   ShoppingBag,
   HeartPulse,
   Wallet,
@@ -8,7 +8,7 @@ import {
   Plane,
   Rocket,
 } from "lucide-react";
-import Reveal from "./Reveal";
+import Reveal, { RevealGroup } from "./Reveal";
 
 const INDUSTRIES = [
   { icon: ShoppingBag, name: "Ecommerce & Retail", desc: "Stores that convert and scale." },
@@ -38,11 +38,11 @@ export default function Industries() {
           </p>
         </Reveal>
 
-        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <RevealGroup className="mt-14 -mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:mx-0 sm:grid sm:snap-none sm:grid-cols-2 sm:gap-5 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-4">
           {INDUSTRIES.map((it, i) => (
-            <Reveal key={it.name} delay={(i % 4) * 0.08}>
-              <div className="group card relative h-full overflow-hidden rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:border-electric/40 hover:shadow-card-hover">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-electric/10 text-electric ring-1 ring-navy/10 transition-colors group-hover:bg-electric group-hover:text-white">
+            <Reveal key={it.name} delay={(i % 4) * 0.08} className="w-[75%] shrink-0 snap-start sm:w-auto">
+              <div className="group card relative h-full overflow-hidden rounded-2xl p-6 transition-all duration-300 hov:-translate-y-1 hov:border-electric/40 hov:shadow-card-hover">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-electric/10 text-electric ring-1 ring-navy/10 transition-colors group-hov:bg-electric group-hov:text-white">
                   <it.icon size={22} />
                 </div>
                 <h3 className="mt-5 font-display text-base font-semibold text-navy">
@@ -54,7 +54,7 @@ export default function Industries() {
               </div>
             </Reveal>
           ))}
-        </div>
+        </RevealGroup>
       </div>
     </section>
   );

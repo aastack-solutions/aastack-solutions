@@ -1,4 +1,4 @@
-import {
+﻿import {
   Rocket,
   Target,
   Cpu,
@@ -6,7 +6,7 @@ import {
   Handshake,
   Zap,
 } from "lucide-react";
-import Reveal from "./Reveal";
+import Reveal, { RevealGroup } from "./Reveal";
 
 const REASONS = [
   {
@@ -65,11 +65,11 @@ export default function WhyChoose() {
           </h2>
         </Reveal>
 
-        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <RevealGroup className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {REASONS.map((r, i) => (
             <Reveal key={r.title} delay={(i % 3) * 0.08}>
-              <div className="group card h-full rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:border-electric/40 hover:shadow-card-hover">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-electric/10 text-electric ring-1 ring-navy/10 transition-colors group-hover:bg-electric group-hover:text-white">
+              <div className="group card h-full rounded-2xl p-6 transition-all duration-300 hov:-translate-y-1 hov:border-electric/40 hov:shadow-card-hover">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-electric/10 text-electric ring-1 ring-navy/10 transition-colors group-hov:bg-electric group-hov:text-white">
                   <r.icon size={22} />
                 </div>
                 <h3 className="mt-5 font-display text-lg font-semibold">
@@ -81,7 +81,7 @@ export default function WhyChoose() {
               </div>
             </Reveal>
           ))}
-        </div>
+        </RevealGroup>
 
         <Reveal className="mt-12 text-center">
           <p className="font-display text-xl font-medium text-navy/90 sm:text-2xl">

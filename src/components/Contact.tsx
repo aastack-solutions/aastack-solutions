@@ -1,9 +1,11 @@
-"use client";
+﻿"use client";
 
 import { useState, type FormEvent } from "react";
-import { Mail, Send, CheckCircle2, Clock } from "lucide-react";
+import { Mail, Phone, Send, CheckCircle2, Clock } from "lucide-react";
 import { motion } from "framer-motion";
 import LinkedinIcon from "./LinkedinIcon";
+import ChatbotLottie from "./ChatbotLottie";
+import { CONTACT, SOCIAL } from "@/data/site";
 
 const SERVICES = ["AI", "Web & App", "SEO", "Other"];
 
@@ -40,32 +42,44 @@ export default function Contact() {
 
             <div className="mt-8 space-y-4">
               <a
-                href="mailto:hello@aastack.dev"
-                className="flex items-center gap-3 text-navy/85 transition-colors hover:text-electric"
+                href={`mailto:${CONTACT.email}`}
+                className="flex items-center gap-3 break-all text-navy/85 transition-colors hover:text-electric"
               >
-                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-electric/10 text-electric">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-electric/10 text-electric">
                   <Mail size={18} />
                 </span>
-                hello@aastack.dev
+                {CONTACT.email}
               </a>
               <a
-                href="https://linkedin.com"
+                href={`tel:${CONTACT.phoneHref}`}
+                className="flex items-center gap-3 text-navy/85 transition-colors hover:text-electric"
+              >
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-electric/10 text-electric">
+                  <Phone size={18} />
+                </span>
+                {CONTACT.phone}
+              </a>
+              <a
+                href={SOCIAL.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 text-navy/85 transition-colors hover:text-electric"
               >
-                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-electric/10 text-electric">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-electric/10 text-electric">
                   <LinkedinIcon size={18} />
                 </span>
                 LinkedIn
               </a>
               <p className="flex items-center gap-3 text-navy/60">
-                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-electric/10 text-electric">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-electric/10 text-electric">
                   <Clock size={18} />
                 </span>
                 Replies within 24 hours
               </p>
             </div>
+
+            {/* Friendly chatbot â€” nods at the visitor while they reach out */}
+            <ChatbotLottie className="mt-6 hidden w-full max-w-xs sm:block" />
           </div>
 
           {/* Right: form */}
@@ -152,7 +166,7 @@ export default function Contact() {
                   Send
                   <Send
                     size={17}
-                    className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                    className="transition-transform group-hov:translate-x-0.5 group-hov:-translate-y-0.5"
                   />
                 </button>
               </form>

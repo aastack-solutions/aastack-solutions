@@ -1,4 +1,4 @@
-import {
+﻿import {
   ShieldCheck,
   Gem,
   Lightbulb,
@@ -7,7 +7,7 @@ import {
   Zap,
   type LucideIcon,
 } from "lucide-react";
-import Reveal from "./Reveal";
+import Reveal, { RevealGroup } from "./Reveal";
 
 type Value = {
   icon: LucideIcon;
@@ -88,11 +88,11 @@ export default function CoreValues() {
               aria-hidden
             />
 
-            <div className="relative grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <RevealGroup className="relative grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {VALUES.map((v, i) => (
                 <Reveal key={v.title} delay={(i % 3) * 0.08}>
-                  <div className="group h-full rounded-2xl border border-white/10 bg-white/[0.06] p-6 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-electric-light/50 hover:bg-white/[0.1]">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-electric/20 text-electric-light ring-1 ring-white/10 transition-colors group-hover:bg-electric group-hover:text-white">
+                  <div className="group h-full rounded-2xl border border-white/10 bg-white/[0.06] p-6 backdrop-blur-sm transition-all duration-300 hov:-translate-y-1 hov:border-electric-light/50 hov:bg-white/[0.1]">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-electric/20 text-electric-light ring-1 ring-white/10 transition-colors group-hov:bg-electric group-hov:text-white">
                       <v.icon size={22} />
                     </div>
                     <h3 className="mt-5 font-display text-lg font-semibold text-white">
@@ -104,7 +104,7 @@ export default function CoreValues() {
                   </div>
                 </Reveal>
               ))}
-            </div>
+            </RevealGroup>
           </div>
         </Reveal>
       </div>

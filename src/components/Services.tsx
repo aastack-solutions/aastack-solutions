@@ -1,7 +1,6 @@
-import Image from "next/image";
-import { Bot, Code2, TrendingUp, Check } from "lucide-react";
-import Reveal from "./Reveal";
-import whatWeDo from "../../public/images/full-service-bg.jpg";
+﻿import { Bot, Code2, TrendingUp, Check } from "lucide-react";
+import Reveal, { RevealGroup } from "./Reveal";
+import ChatbotLottie from "./ChatbotLottie";
 
 const SERVICES = [
   {
@@ -58,55 +57,33 @@ export default function Services() {
           </Reveal>
 
           <Reveal delay={0.1}>
-            <div className="relative">
-              {/* Soft accent glow behind the frame */}
+            <div className="relative flex items-center justify-center">
+              {/* Soft accent glow behind the animation */}
               <div
-                className="absolute -inset-4 -z-10 rounded-[2.5rem] bg-gradient-to-tr from-electric/12 via-cyan/8 to-transparent blur-2xl"
+                className="absolute -z-10 h-3/4 w-3/4 rounded-full bg-gradient-to-tr from-electric/15 via-cyan/10 to-transparent blur-3xl"
                 aria-hidden
               />
-              <div className="relative overflow-hidden rounded-3xl shadow-card ring-1 ring-navy/10">
-                <Image
-                  src={whatWeDo}
-                  alt="The AAStack team collaborating on a client project"
-                  className="aspect-[4/3] w-full object-cover"
-                  sizes="(min-width: 1024px) 36rem, 100vw"
-                />
-                {/* Gradient scrim for badge legibility */}
-                <div
-                  className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-navy/45 to-transparent"
-                  aria-hidden
-                />
-                {/* Floating badge */}
-                <div className="absolute bottom-4 left-4 flex items-center gap-3 rounded-2xl bg-white/95 px-4 py-2.5 shadow-soft ring-1 ring-navy/[0.06] backdrop-blur">
-                  <span className="flex items-center gap-1.5 text-electric">
-                    <Bot size={16} />
-                    <Code2 size={16} />
-                    <TrendingUp size={16} />
-                  </span>
-                  <span className="text-sm font-semibold tracking-tight text-navy">
-                    AI · Web · SEO
-                  </span>
-                </div>
-              </div>
+              {/* Live AI chatbot animation */}
+              <ChatbotLottie className="w-[80%] max-w-md" />
             </div>
           </Reveal>
         </div>
 
-        <div className="mt-12 grid gap-6 sm:mt-16 md:grid-cols-3">
+        <RevealGroup className="mt-12 grid gap-6 sm:mt-16 md:grid-cols-3">
           {SERVICES.map((s, i) => (
             <Reveal key={s.title} delay={i * 0.1}>
-              <article className="group card relative flex h-full flex-col overflow-hidden rounded-3xl p-8 transition-all duration-300 hover:-translate-y-1.5 hover:border-electric/40 hover:shadow-card-hover">
+              <article className="group card relative flex h-full flex-col overflow-hidden rounded-3xl p-8 transition-all duration-300 hov:-translate-y-1.5 hov:border-electric/40 hov:shadow-card-hover">
                 {/* Accent bar that fills on hover */}
                 <span
-                  className="absolute inset-x-0 top-0 h-1 origin-left scale-x-0 bg-gradient-to-r from-electric to-cyan transition-transform duration-300 group-hover:scale-x-100"
+                  className="absolute inset-x-0 top-0 h-1 origin-left scale-x-0 bg-gradient-to-r from-electric to-cyan transition-transform duration-300 group-hov:scale-x-100"
                   aria-hidden
                 />
 
                 <div className="flex items-center justify-between">
-                  <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-electric/10 text-electric ring-1 ring-navy/[0.06] transition-colors duration-300 group-hover:bg-electric group-hover:text-white">
+                  <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-electric/10 text-electric ring-1 ring-navy/[0.06] transition-colors duration-300 group-hov:bg-electric group-hov:text-white">
                     <s.icon size={26} />
                   </span>
-                  <span className="font-display text-4xl font-bold tabular-nums text-navy/[0.08] transition-colors duration-300 group-hover:text-electric/15">
+                  <span className="font-display text-4xl font-bold tabular-nums text-navy/[0.08] transition-colors duration-300 group-hov:text-electric/15">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                 </div>
@@ -132,7 +109,7 @@ export default function Services() {
               </article>
             </Reveal>
           ))}
-        </div>
+        </RevealGroup>
       </div>
     </section>
   );

@@ -2,33 +2,48 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import PageHero from "@/components/PageHero";
-import Services from "@/components/Services";
-import Process from "@/components/Process";
+import FAQ from "@/components/FAQ";
+import { FAQS } from "@/data/faqs";
 import CTABand from "@/components/CTABand";
 import { CALENDLY_URL } from "@/data/site";
-import heroImg from "../../../public/images/full-service-bg.jpg";
+import heroImg from "../../../public/images/service2.jpg";
 
-export const metadata: Metadata = {
-  title: "Services",
-  description:
-    "AI engineering, modern web & mobile app development, and SEO that drives real traffic, all under one roof at AAStack.",
+// Structured data so search engines can show these as rich FAQ results.
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQS.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
 };
 
-export default function ServicesPage() {
+export const metadata: Metadata = {
+  title: "FAQs",
+  description:
+    "Answers to the most common questions about working with AAStack, pricing, timelines, AI, SEO, and ongoing support.",
+};
+
+export default function FAQsPage() {
   return (
     <main>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
       <PageHero
-        eyebrow="Our Services"
+        eyebrow="Frequently Asked Questions"
         image={heroImg}
         title={
           <>
-            Build smarter with{" "}
+            Questions?{" "}
             <span className="bg-gradient-to-r from-electric-light via-cyan to-electric-light bg-clip-text text-transparent">
-              AAStack Solutions
+              Answered.
             </span>
           </>
         }
-        subtitle="From intelligent automation to pixel perfect products and rankings that convert. Here's how we drive your growth."
+        subtitle="Everything you need to know before we get started, from pricing and timelines to AI, SEO, and what happens after launch."
       >
         <Link
           href={CALENDLY_URL}
@@ -36,19 +51,15 @@ export default function ServicesPage() {
           rel="noopener noreferrer"
           className="group inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-electric to-violet px-7 py-3.5 text-base font-semibold text-white shadow-[0_10px_28px_-10px_var(--color-electric)] transition-all hover:-translate-y-0.5 hover:shadow-[0_16px_36px_-10px_var(--color-electric)]"
         >
-          Start a project
+          Still have questions? Talk to us
           <ArrowRight
             size={18}
             className="transition-transform group-hov:translate-x-1"
           />
         </Link>
       </PageHero>
-      <Services />
-      <Process />
-      <CTABand
-        title="Have a project in mind?"
-        subtitle="Tell us what you're building and we'll map out the right approach, free of charge."
-      />
+      <FAQ />
+      <CTABand />
     </main>
   );
 }

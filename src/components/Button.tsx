@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import type { ReactNode } from "react";
 
 type Variant = "primary" | "outline" | "ghost";
@@ -18,11 +18,11 @@ type ButtonProps = {
 };
 
 const base =
-  "group relative inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-electric/40 focus-visible:ring-offset-2 focus-visible:ring-offset-ink";
+  "group relative inline-flex items-center justify-center gap-2 rounded-2xl font-semibold transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-electric/40 focus-visible:ring-offset-2 focus-visible:ring-offset-ink";
 
 const variants: Record<Variant, string> = {
   primary:
-    "bg-electric text-white shadow-soft hover:-translate-y-0.5 hover:bg-electric/95 hover:shadow-card-hover",
+    "bg-gradient-to-r from-electric to-violet text-white shadow-[0_10px_28px_-10px_var(--color-electric)] hover:-translate-y-0.5 hover:shadow-[0_16px_36px_-10px_var(--color-electric)]",
   outline:
     "border border-electric/40 text-electric hover:-translate-y-0.5 hover:bg-electric hover:text-white",
   ghost: "text-navy/70 hover:bg-electric/5 hover:text-electric",
@@ -52,15 +52,22 @@ export default function Button({
       {/* subtle sheen sweep on hover */}
       <span
         aria-hidden
-        className="pointer-events-none absolute inset-0 -translate-x-full overflow-hidden rounded-full bg-gradient-to-r from-transparent via-white/25 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-full"
+        className="pointer-events-none absolute inset-0 -translate-x-full overflow-hidden rounded-2xl bg-gradient-to-r from-transparent via-white/25 to-transparent transition-transform duration-700 ease-out group-hov:translate-x-full"
       />
       <span className="relative inline-flex items-center gap-2">{children}</span>
     </>
   );
 
   if (href) {
+    // Open external links (Calendly, etc.) in a new tab.
+    const external = /^https?:\/\//.test(href);
     return (
-      <Link href={href} className={classes} {...aria}>
+      <Link
+        href={href}
+        className={classes}
+        {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+        {...aria}
+      >
         {content}
       </Link>
     );

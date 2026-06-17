@@ -1,10 +1,11 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowRight, Star, Sparkles } from "lucide-react";
 import heroImg from "../../public/images/hero.jpg";
+import { CALENDLY_URL } from "@/data/site";
 
 const container = {
   hidden: {},
@@ -101,7 +102,7 @@ export default function Hero() {
               <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
             </span>
             Available for new projects
-            <span className="text-white/30">·</span>
+            <span className="text-white/30">Â·</span>
             <Sparkles size={13} className="text-electric-light" />
             AI, Web & SEO
           </motion.div>
@@ -110,7 +111,7 @@ export default function Hero() {
             variants={item}
             className="mt-6 text-xs font-semibold uppercase tracking-[0.28em] text-electric-light sm:text-sm"
           >
-            Software · AI · Digital Products
+            Software Â· AI Â· Digital Products
           </motion.p>
 
           <motion.h1
@@ -136,18 +137,20 @@ export default function Hero() {
             className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row"
           >
             <Link
-              href="/#contact"
-              className="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-electric px-7 py-3.5 text-base font-semibold text-white shadow-soft transition-all hover:bg-electric/90 hover:shadow-[0_18px_40px_-12px_rgba(31,127,214,0.6)] sm:w-auto"
+              href={CALENDLY_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-electric to-violet px-7 py-3.5 text-base font-semibold text-white shadow-[0_10px_28px_-10px_rgba(31,127,214,0.7)] transition-all hover:-translate-y-0.5 hover:shadow-[0_18px_40px_-12px_rgba(31,127,214,0.7)] sm:w-auto"
             >
               Get a free consultation
               <ArrowRight
                 size={18}
-                className="transition-transform group-hover:translate-x-1"
+                className="transition-transform group-hov:translate-x-1"
               />
             </Link>
             <Link
               href="/work"
-              className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/30 bg-white/5 px-7 py-3.5 text-base font-semibold text-white backdrop-blur-md transition-colors hover:bg-white/15 sm:w-auto"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-white/30 bg-white/5 px-7 py-3.5 text-base font-semibold text-white backdrop-blur-md transition-colors hover:bg-white/15 sm:w-auto"
             >
               View our work
             </Link>

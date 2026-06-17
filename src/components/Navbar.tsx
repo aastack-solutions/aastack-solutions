@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
@@ -11,13 +11,15 @@ import {
   useScroll,
   useSpring,
 } from "framer-motion";
+import { CALENDLY_URL } from "@/data/site";
 
 const LINKS = [
   { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
   { label: "Services", href: "/services" },
   { label: "Work", href: "/work" },
   { label: "Case Studies", href: "/case-studies" },
-  { label: "About", href: "/about" },
+  { label: "FAQs", href: "/faqs" },
 ];
 
 // Pages that open with a dark, full-bleed image hero. While the bar floats over
@@ -98,7 +100,7 @@ export default function Navbar() {
             className="group relative flex items-center"
           >
             <span
-              className={`absolute -inset-2 -z-10 rounded-full opacity-0 blur-md transition-opacity duration-300 group-hover:opacity-100 ${
+              className={`absolute -inset-2 -z-10 rounded-full opacity-0 blur-md transition-opacity duration-300 group-hov:opacity-100 ${
                 onDark ? "bg-white/20" : "bg-electric/20"
               }`}
             />
@@ -108,7 +110,7 @@ export default function Navbar() {
               width={368}
               height={112}
               priority
-              className={`h-9 w-auto object-contain transition-all duration-300 group-hover:scale-[1.03] lg:h-10 ${
+              className={`h-9 w-auto object-contain transition-all duration-300 group-hov:scale-[1.03] lg:h-10 ${
                 onDark ? "brightness-0 invert" : ""
               }`}
             />
@@ -158,10 +160,10 @@ export default function Navbar() {
           {/* Right side */}
           <div className="flex items-center gap-2.5">
             <Link
-              href="https://calendly.com/malikaliyan-contact"
+              href={CALENDLY_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className={`group relative hidden items-center gap-1.5 overflow-hidden rounded-full px-5 py-2.5 text-sm font-semibold transition-all md:inline-flex ${
+              className={`group relative hidden items-center gap-1.5 overflow-hidden rounded-2xl px-5 py-2.5 text-sm font-semibold transition-all md:inline-flex ${
                 onDark
                   ? "bg-white text-navy hover:shadow-[0_8px_30px_-8px_rgba(255,255,255,0.5)]"
                   : "bg-gradient-to-r from-electric to-violet text-white shadow-[0_8px_24px_-10px_var(--color-electric)] hover:shadow-[0_12px_32px_-8px_var(--color-electric)]"
@@ -169,12 +171,12 @@ export default function Navbar() {
             >
               <span
                 aria-hidden
-                className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-700 group-hover:translate-x-full"
+                className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-700 group-hov:translate-x-full"
               />
               Free consultation
               <ArrowRight
                 size={15}
-                className="transition-transform group-hover:translate-x-0.5"
+                className="transition-transform group-hov:translate-x-0.5"
               />
             </Link>
 
@@ -205,61 +207,108 @@ export default function Navbar() {
         </nav>
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile drawer (slides in from the right) */}
       <AnimatePresence>
         {open && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-            className="overflow-hidden border-t border-navy/10 bg-ink/95 backdrop-blur-xl md:hidden"
-          >
-            <ul className="flex flex-col gap-1 px-5 py-4">
-              {LINKS.map((l, i) => {
-                const active = isActive(pathname, l.href);
-                return (
-                  <motion.li
-                    key={l.href}
-                    initial={{ opacity: 0, x: -12 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.05 + i * 0.05 }}
-                  >
-                    <Link
-                      href={l.href}
-                      aria-current={active ? "page" : undefined}
-                      className={`flex items-center justify-between rounded-xl px-4 py-3 text-base font-medium transition-colors ${
-                        active
-                          ? "bg-navy/[0.06] text-navy ring-1 ring-navy/10"
-                          : "text-navy/70 hover:bg-navy/[0.04] hover:text-navy"
-                      }`}
-                    >
-                      {l.label}
-                      {active && (
-                        <span className="h-1.5 w-1.5 rounded-full bg-electric" />
-                      )}
-                    </Link>
-                  </motion.li>
-                );
-              })}
-              <motion.li
-                initial={{ opacity: 0, x: -12 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.05 + LINKS.length * 0.05 }}
-                className="pt-2"
-              >
+          <div className="md:hidden">
+            {/* Backdrop */}
+            <motion.button
+              type="button"
+              aria-label="Close menu"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              onClick={() => setOpen(false)}
+              className="fixed inset-0 z-40 bg-navy/40 backdrop-blur-sm"
+            />
+
+            {/* Panel */}
+            <motion.aside
+              role="dialog"
+              aria-modal="true"
+              aria-label="Site menu"
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", stiffness: 320, damping: 34 }}
+              className="fixed inset-y-0 right-0 z-50 flex w-[82%] max-w-sm flex-col border-l border-navy/10 bg-ink/95 shadow-[-24px_0_60px_-24px_rgba(0,0,0,0.35)] backdrop-blur-2xl"
+            >
+              {/* Drawer header */}
+              <div className="flex items-center justify-between border-b border-navy/10 px-5 py-4">
+                <Image
+                  src="/images/navbar-logo.png"
+                  alt="AAStack Solutions"
+                  width={368}
+                  height={112}
+                  className="h-8 w-auto object-contain"
+                />
+                <button
+                  type="button"
+                  aria-label="Close menu"
+                  onClick={() => setOpen(false)}
+                  className="grid h-10 w-10 place-items-center rounded-xl text-navy transition-colors hover:bg-navy/[0.06]"
+                >
+                  <X size={22} />
+                </button>
+              </div>
+
+              {/* Links */}
+              <nav className="flex-1 overflow-y-auto px-4 py-5">
+                <ul className="flex flex-col gap-1.5">
+                  {LINKS.map((l, i) => {
+                    const active = isActive(pathname, l.href);
+                    return (
+                      <motion.li
+                        key={l.href}
+                        initial={{ opacity: 0, x: 16 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.08 + i * 0.05 }}
+                      >
+                        <Link
+                          href={l.href}
+                          aria-current={active ? "page" : undefined}
+                          className={`group flex items-center justify-between rounded-2xl px-4 py-3.5 text-base font-medium transition-colors ${
+                            active
+                              ? "bg-navy/[0.06] text-navy ring-1 ring-navy/10"
+                              : "text-navy/70 hover:bg-navy/[0.04] hover:text-navy"
+                          }`}
+                        >
+                          <span className="flex items-center gap-3">
+                            <span
+                              className={`h-1.5 w-1.5 rounded-full transition-colors ${
+                                active
+                                  ? "bg-electric"
+                                  : "bg-navy/20 group-hov:bg-navy/40"
+                              }`}
+                            />
+                            {l.label}
+                          </span>
+                          <ArrowRight
+                            size={16}
+                            className="text-navy/30 transition-transform group-hov:translate-x-0.5 group-hov:text-navy/60"
+                          />
+                        </Link>
+                      </motion.li>
+                    );
+                  })}
+                </ul>
+              </nav>
+
+              {/* Footer CTA */}
+              <div className="border-t border-navy/10 px-5 py-5">
                 <Link
-                  href="https://calendly.com/malikaliyan-contact"
+                  href={CALENDLY_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-electric to-violet px-5 py-3 text-base font-semibold text-white shadow-soft"
+                  className="flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-electric to-violet px-5 py-3.5 text-base font-semibold text-white shadow-soft"
                 >
                   Get a free consultation
                   <ArrowRight size={17} />
                 </Link>
-              </motion.li>
-            </ul>
-          </motion.div>
+              </div>
+            </motion.aside>
+          </div>
         )}
       </AnimatePresence>
     </header>

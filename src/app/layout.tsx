@@ -4,6 +4,7 @@ import "./globals.css";
 import Aurora from "@/components/Aurora";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import MobileHover from "@/components/MobileHover";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -73,6 +74,7 @@ export default function RootLayout({
     >
       <body className="min-h-full bg-ink font-sans text-navy antialiased">
         <Aurora />
+        <MobileHover />
         <Navbar />
         {children}
         <Footer />

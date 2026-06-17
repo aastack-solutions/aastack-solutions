@@ -1,6 +1,6 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { Layers, FolderGit2, LineChart, Users, ArrowUpRight } from "lucide-react";
-import Reveal from "./Reveal";
+import Reveal, { RevealGroup } from "./Reveal";
 
 const ITEMS = [
   {
@@ -49,12 +49,12 @@ export default function ExploreTeasers() {
           </p>
         </Reveal>
 
-        <div className="mt-14 grid gap-6 sm:grid-cols-2">
+        <RevealGroup className="mt-14 grid gap-6 sm:grid-cols-2">
           {ITEMS.map((it, i) => (
             <Reveal key={it.href} delay={(i % 2) * 0.1}>
               <Link
                 href={it.href}
-                className="group card relative flex h-full flex-col overflow-hidden rounded-3xl p-7 transition-all duration-300 hover:-translate-y-1 hover:border-electric/40 hover:shadow-card-hover"
+                className="group card relative flex h-full flex-col overflow-hidden rounded-3xl p-7 transition-all duration-300 hov:-translate-y-1 hov:border-electric/40 hov:shadow-card-hover"
               >
                 <div className="relative flex items-center justify-between">
                   <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-electric text-white shadow-soft">
@@ -62,7 +62,7 @@ export default function ExploreTeasers() {
                   </div>
                   <ArrowUpRight
                     size={22}
-                    className="text-navy/40 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-electric"
+                    className="text-navy/40 transition-all duration-300 group-hov:-translate-y-0.5 group-hov:translate-x-0.5 group-hov:text-electric"
                   />
                 </div>
                 <p className="relative mt-6 text-xs font-semibold uppercase tracking-[0.2em] text-electric">
@@ -75,7 +75,7 @@ export default function ExploreTeasers() {
               </Link>
             </Reveal>
           ))}
-        </div>
+        </RevealGroup>
       </div>
     </section>
   );

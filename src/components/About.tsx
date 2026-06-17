@@ -1,50 +1,62 @@
+﻿import type { CSSProperties } from "react";
 import {
   Target,
-  Code2,
   ShieldCheck,
   Gauge,
   Handshake,
-  Smartphone,
-  Globe,
-  Server,
-  Bot,
-  Search,
-  type LucideIcon,
+  Quote,
 } from "lucide-react";
-import Reveal from "./Reveal";
+import Reveal, { RevealGroup } from "./Reveal";
 
-type StackGroup = {
-  icon: LucideIcon;
-  label: string;
-  items: string[];
-};
-
-const STACK_GROUPS: StackGroup[] = [
-  {
-    icon: Smartphone,
-    label: "Mobile",
-    items: ["Flutter", "Dart", "Android", "iOS"],
-  },
-  {
-    icon: Globe,
-    label: "Web",
-    items: ["React", "Next.js", "TypeScript", "JavaScript", "Tailwind CSS", "HTML", "CSS"],
-  },
-  {
-    icon: Server,
-    label: "Backend & Cloud",
-    items: ["Firebase", "Node.js", "REST APIs"],
-  },
-  {
-    icon: Bot,
-    label: "AI",
-    items: ["AI Chatbots", "LLM Integrations", "Automation"],
-  },
-  {
-    icon: Search,
-    label: "SEO & Growth",
-    items: ["Technical SEO", "Google Search Console", "Google Business Profile"],
-  },
+// Each row scrolls horizontally in an infinite marquee. Rows alternate
+// direction (left and right) for a lively, polished feel.
+const SKILL_ROWS: string[][] = [
+  [
+    "Flutter",
+    "Dart",
+    "React Native",
+    "React",
+    "Next.js",
+    "TypeScript",
+    "JavaScript",
+    "Tailwind CSS",
+    "Node.js",
+    "Express",
+    "Nest.js",
+    "Python",
+    "Flask",
+    "FastAPI",
+  ],
+  [
+    "Java",
+    "Spring Boot",
+    "GraphQL",
+    "REST APIs",
+    "PostgreSQL",
+    "MySQL",
+    "MongoDB",
+    "Pinecone",
+    "pgvector",
+    "SaaS Development",
+    "Workflow Automation",
+    "Shopify Development",
+    "Shopify Automation",
+  ],
+  [
+    "LLM Integrations",
+    "AI Chatbots",
+    "RAG Pipelines",
+    "AI Automation",
+    "AI Reviewer",
+    "AI Evaluation",
+    "n8n",
+    "WhatsApp Bots",
+    "Voice Bots",
+    "Technical SEO",
+    "SEO",
+    "Google Search Console",
+    "Google Business Profile",
+  ],
 ];
 
 const VALUES = [
@@ -61,7 +73,7 @@ const VALUES = [
   {
     icon: Handshake,
     title: "An honest partnership",
-    body: "Clear communication and zero surprises, from kickoff to launch and well beyond go-live.",
+    body: "Clear communication and zero surprises, from kickoff to launch and well beyond go live.",
   },
 ];
 
@@ -71,145 +83,203 @@ const STATS = [
   { value: "24/7", label: "AI automation built" },
 ];
 
+const PILL_ACCENTS = [
+  {
+    dot: "bg-electric",
+    hover: "hover:border-electric/40 hover:bg-electric/[0.06] hover:text-electric",
+  },
+  {
+    dot: "bg-violet",
+    hover: "hover:border-violet/40 hover:bg-violet/[0.06] hover:text-violet",
+  },
+  {
+    dot: "bg-cyan",
+    hover: "hover:border-cyan/40 hover:bg-cyan/[0.06] hover:text-cyan",
+  },
+];
+
+function SkillPill({ label, index }: { label: string; index: number }) {
+  const accent = PILL_ACCENTS[index % PILL_ACCENTS.length];
+  return (
+    <span
+      className={`mr-3 inline-flex shrink-0 items-center gap-2 rounded-full border border-navy/[0.07] bg-white/80 px-4 py-2.5 text-sm font-medium text-navy/80 shadow-soft backdrop-blur-sm transition-colors duration-300 ${accent.hover}`}
+    >
+      <span className={`h-1.5 w-1.5 rounded-full ${accent.dot}`} aria-hidden />
+      {label}
+    </span>
+  );
+}
+
+function MarqueeRow({
+  items,
+  reverse = false,
+  duration,
+}: {
+  items: string[];
+  reverse?: boolean;
+  duration: string;
+}) {
+  return (
+    <div className="marquee-mask overflow-hidden py-1">
+      <div className="marquee-group">
+        <div
+          className={`marquee-track ${reverse ? "marquee-track-reverse" : ""}`}
+          style={{ "--marquee-duration": duration } as CSSProperties}
+        >
+          {[...items, ...items].map((s, i) => (
+            <SkillPill key={`${s}-${i}`} label={s} index={i} />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function About() {
   return (
     <section id="about" className="py-20 sm:py-28">
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
-        <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
-          {/* Left: who we are + values */}
-          <Reveal>
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-electric">
-              About AAStack
-            </p>
-            <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-navy sm:text-4xl">
-              Building great digital products
-            </h2>
-            <p className="mt-5 leading-relaxed text-navy/65">
-              We&apos;re AAStack, a team passionate about building great digital
-              products. We help businesses leverage technology, from AI
-              assistants and powerful websites to mobile apps and better search
-              rankings, combining technical expertise with a focus on real,
-              measurable results.
-            </p>
-            <p className="mt-4 leading-relaxed text-navy/65">
-              Whether you&apos;re starting from scratch or modernizing what you
-              already have, we work closely with you to turn ideas into
-              fast, reliable products your customers actually enjoy using.
-            </p>
+        {/* Intro */}
+        <Reveal className="mx-auto max-w-3xl text-center">
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-electric">
+            About AAStack
+          </p>
+          <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-navy sm:text-4xl lg:text-5xl">
+            Building great digital products
+          </h2>
+          <p className="mt-5 text-lg leading-relaxed text-navy/60">
+            We&apos;re AAStack, a team passionate about helping businesses grow
+            with technology, from AI assistants and powerful websites to mobile
+            apps and better search rankings, combining technical expertise with
+            a focus on real, measurable results.
+          </p>
+        </Reveal>
 
-            {/* Quick stats */}
-            <dl className="mt-8 grid grid-cols-3 gap-3">
-              {STATS.map((s) => (
-                <div
-                  key={s.label}
-                  className="card rounded-2xl p-4 text-center"
-                >
-                  <dt className="font-display text-2xl font-extrabold text-electric sm:text-3xl">
-                    {s.value}
-                  </dt>
-                  <dd className="mt-1 text-xs font-medium leading-tight text-navy/55">
-                    {s.label}
-                  </dd>
-                </div>
-              ))}
-            </dl>
-
-            <ul className="mt-8 space-y-4">
-              {VALUES.map((v) => (
-                <li key={v.title} className="flex gap-4">
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-electric/10 text-electric ring-1 ring-navy/[0.06]">
-                    <v.icon size={18} />
-                  </span>
-                  <div>
-                    <h3 className="font-display font-semibold text-navy">
-                      {v.title}
-                    </h3>
-                    <p className="mt-0.5 text-sm leading-relaxed text-navy/60">
-                      {v.body}
-                    </p>
-                  </div>
-                </li>
-              ))}
-            </ul>
-
-            <div className="card mt-8 flex items-start gap-4 rounded-2xl p-5">
-              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-electric text-white shadow-soft">
-                <Target size={20} />
-              </div>
-              <div>
-                <h3 className="font-display font-semibold text-navy">
-                  Our Mission
-                </h3>
-                <p className="mt-1 text-sm leading-relaxed text-navy/65">
-                  To make advanced technology accessible and profitable for
-                  every business.
-                </p>
-              </div>
-            </div>
-          </Reveal>
-
-          {/* Right: founder */}
-          <Reveal delay={0.12}>
-            <div className="card relative h-full overflow-hidden rounded-3xl p-8 text-navy">
-              {/* Soft accent corner */}
+        {/* Stats */}
+        <Reveal delay={0.05} className="mt-12">
+          <dl className="grid grid-cols-3 gap-4 sm:gap-5">
+            {STATS.map((s) => (
               <div
-                className="absolute -right-16 -top-16 h-44 w-44 rounded-full bg-gradient-to-br from-electric/15 to-transparent blur-2xl"
-                aria-hidden
-              />
+                key={s.label}
+                className="card rounded-2xl p-5 text-center sm:p-6"
+              >
+                <dt className="font-display text-3xl font-extrabold text-electric sm:text-4xl">
+                  {s.value}
+                </dt>
+                <dd className="mt-1.5 text-xs font-medium leading-tight text-navy/55 sm:text-sm">
+                  {s.label}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </Reveal>
 
-              <div className="relative flex items-center gap-4">
-                <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-electric to-violet font-display text-xl font-bold text-white shadow-soft">
-                  AA
-                </div>
-                <div>
-                  <p className="text-sm font-semibold uppercase tracking-wider text-electric">
-                    About the Founder
+        {/* Values */}
+        <div className="mt-20">
+          <Reveal className="mx-auto max-w-2xl text-center">
+            <h3 className="font-display text-2xl font-bold tracking-tight text-navy sm:text-3xl">
+              What drives us
+            </h3>
+            <p className="mt-3 text-navy/55">
+              The principles behind every project we take on.
+            </p>
+          </Reveal>
+
+          <RevealGroup className="mt-10 grid gap-5 sm:grid-cols-3">
+            {VALUES.map((v, i) => (
+              <Reveal key={v.title} delay={i * 0.08}>
+                <div className="group card h-full rounded-2xl p-6 transition-all duration-300 hov:-translate-y-1 hov:border-electric/40 hov:shadow-card-hover">
+                  <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-electric/10 text-electric ring-1 ring-navy/[0.06] transition-colors group-hov:bg-electric group-hov:text-white">
+                    <v.icon size={22} />
+                  </span>
+                  <h4 className="mt-5 font-display text-lg font-semibold text-navy">
+                    {v.title}
+                  </h4>
+                  <p className="mt-2 text-sm leading-relaxed text-navy/60">
+                    {v.body}
                   </p>
-                  <h3 className="font-display text-xl font-bold">
-                    Mobile &amp; Web Developer
-                  </h3>
+                </div>
+              </Reveal>
+            ))}
+          </RevealGroup>
+        </div>
+
+        {/* Technologies marquee */}
+        <div className="mt-20">
+          <Reveal className="mx-auto max-w-2xl text-center">
+            <h3 className="font-display text-2xl font-bold tracking-tight text-navy sm:text-3xl">
+              Technologies we build with
+            </h3>
+            <p className="mt-3 text-navy/55">
+              A modern stack spanning mobile, web, backend, databases, AI, and
+              growth.
+            </p>
+          </Reveal>
+
+        </div>
+
+        {/* Full width marquee, breaks out of the container with a small edge gap */}
+        <div className="relative left-1/2 mt-10 w-screen -translate-x-1/2 px-5">
+          <div className="space-y-3.5 sm:space-y-4">
+            <MarqueeRow items={SKILL_ROWS[0]} duration="52s" />
+            <MarqueeRow items={SKILL_ROWS[1]} reverse duration="46s" />
+            <MarqueeRow items={SKILL_ROWS[2]} duration="58s" />
+          </div>
+        </div>
+
+        {/* Founder + mission */}
+        <Reveal delay={0.05} className="mt-20">
+          <div className="relative">
+            <div
+              className="absolute -right-10 -top-16 -z-10 h-52 w-52 rounded-full bg-gradient-to-br from-electric/12 to-transparent blur-3xl"
+              aria-hidden
+            />
+
+            <div className="relative grid gap-9 lg:grid-cols-12 lg:items-start lg:gap-12">
+              {/* Identity */}
+              <div className="lg:col-span-4">
+                <div className="flex items-center gap-4">
+                  <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-electric to-violet font-display text-xl font-bold text-white shadow-soft">
+                    AA
+                  </div>
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-wider text-electric">
+                      About the Founder
+                    </p>
+                    <h3 className="font-display text-xl font-bold text-navy">
+                      Mobile &amp; Web Developer
+                    </h3>
+                  </div>
+                </div>
+
+                <div className="mt-6 flex items-start gap-3 rounded-2xl bg-electric/[0.05] p-4 ring-1 ring-inset ring-electric/10">
+                  <Target size={18} className="mt-0.5 shrink-0 text-electric" />
+                  <p className="text-sm leading-relaxed text-navy/70">
+                    <span className="font-semibold text-navy">Our mission:</span>{" "}
+                    to make advanced technology accessible and profitable for
+                    every business.
+                  </p>
                 </div>
               </div>
 
-              <p className="relative mt-6 leading-relaxed text-navy/75">
-                Hi, I&apos;m a passionate Mobile &amp; Web Developer who builds
-                responsive, user friendly applications. I craft fast, clean,
-                modern apps tailored to each client&apos;s needs, and increasingly
-                bring AI into them to automate the work that used to eat up your
-                time. My goal: deliver high quality work, on time, that actually
-                solves your problem.
-              </p>
-
-              <div className="relative mt-8 border-t border-navy/[0.08] pt-6">
-                <p className="flex items-center gap-2 text-sm font-semibold text-navy/50">
-                  <Code2 size={16} className="text-electric" /> The stack I work
-                  with
+              {/* Bio */}
+              <div className="lg:col-span-8 lg:border-l lg:border-navy/[0.08] lg:pl-12">
+                <Quote size={28} className="text-electric/25" aria-hidden />
+                <p className="mt-3 text-lg leading-relaxed text-navy/75">
+                  I&apos;m a passionate Mobile &amp; Web Developer who builds
+                  responsive, user friendly applications. I craft fast, clean,
+                  modern apps tailored to each client&apos;s needs, and
+                  increasingly bring AI into them to automate the work that used
+                  to eat up your time.
                 </p>
-
-                <div className="mt-5 space-y-5">
-                  {STACK_GROUPS.map((group) => (
-                    <div key={group.label}>
-                      <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-navy/45">
-                        <group.icon size={14} className="text-electric" />
-                        {group.label}
-                      </p>
-                      <ul className="mt-2.5 flex flex-wrap gap-2">
-                        {group.items.map((t) => (
-                          <li
-                            key={t}
-                            className="rounded-full bg-electric/[0.07] px-3 py-1 text-sm font-medium text-navy/80 ring-1 ring-navy/[0.08] transition-colors hover:bg-electric/10 hover:text-electric"
-                          >
-                            {t}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ))}
-                </div>
+                <p className="mt-4 leading-relaxed text-navy/60">
+                  My goal is simple: deliver high quality work, on time, that
+                  actually solves your problem.
+                </p>
               </div>
             </div>
-          </Reveal>
-        </div>
+          </div>
+        </Reveal>
       </div>
     </section>
   );

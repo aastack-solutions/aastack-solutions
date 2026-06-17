@@ -1,5 +1,6 @@
+﻿import Link from "next/link";
 import { ArrowRight, Check, Quote } from "lucide-react";
-import Reveal from "./Reveal";
+import Reveal, { RevealGroup } from "./Reveal";
 
 const PAIRS = [
   {
@@ -32,7 +33,7 @@ const PAIRS = [
 export default function Problems() {
   return (
     <section className="py-20 sm:py-28">
-      <div className="mx-auto max-w-5xl px-5 sm:px-8">
+      <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <Reveal className="mx-auto max-w-2xl text-center">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-electric">
             We Solve Real Problems
@@ -45,47 +46,58 @@ export default function Problems() {
           </p>
         </Reveal>
 
-        <div className="mt-14 space-y-5">
+        <RevealGroup className="mt-12 grid gap-5 sm:grid-cols-2">
           {PAIRS.map((p, i) => (
-            <Reveal key={p.problem} delay={(i % 3) * 0.08}>
-              <div className="group relative grid items-stretch overflow-hidden rounded-2xl border border-navy/10 bg-surface shadow-card transition-all duration-300 hover:-translate-y-0.5 hover:border-electric/30 hover:shadow-card-hover md:grid-cols-[1fr_auto_1fr]">
-                {/* Accent bar */}
-                <span className="absolute inset-y-0 left-0 w-1 origin-top scale-y-0 bg-gradient-to-b from-electric to-violet transition-transform duration-300 group-hover:scale-y-100" />
+            <Reveal key={p.problem} delay={(i % 2) * 0.08}>
+              <div className="group card relative flex h-full flex-col overflow-hidden rounded-2xl p-6 transition-all duration-300 hov:-translate-y-1 hov:border-electric/40 hov:shadow-card-hover">
+                {/* Accent bar that fills on hover */}
+                <span
+                  className="absolute inset-x-0 top-0 h-1 origin-left scale-x-0 bg-gradient-to-r from-electric to-cyan transition-transform duration-300 group-hov:scale-x-100"
+                  aria-hidden
+                />
 
-                {/* Problem */}
-                <div className="p-6 sm:p-8">
-                  <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-navy/40">
-                    <Quote size={13} className="text-navy/30" />
-                    The problem
-                  </span>
-                  <p className="mt-3 font-display text-lg font-medium italic leading-snug text-navy/90">
-                    {p.problem}
-                  </p>
-                </div>
+                <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-navy/40">
+                  <Quote size={13} className="text-navy/30" />
+                  The problem
+                </span>
+                <p className="mt-2.5 font-display text-base font-semibold italic leading-snug text-navy/90 sm:text-lg">
+                  {p.problem}
+                </p>
 
-                {/* Connector */}
-                <div className="flex items-center justify-center px-6 md:px-0">
-                  <span className="flex h-10 w-10 items-center justify-center rounded-full border border-navy/10 bg-ink text-electric transition-all duration-300 group-hover:border-electric/40 group-hover:bg-electric group-hover:text-white">
-                    <ArrowRight
-                      size={16}
-                      className="rotate-90 transition-transform duration-300 group-hover:translate-x-0.5 md:rotate-0"
-                    />
-                  </span>
-                </div>
+                <div className="my-5 h-px bg-navy/[0.07]" aria-hidden />
 
-                {/* Solution */}
-                <div className="border-t border-navy/[0.06] bg-navy/[0.015] p-6 transition-colors duration-300 group-hover:bg-electric/[0.04] sm:p-8 md:border-l md:border-t-0">
-                  <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-electric">
-                    <Check size={14} strokeWidth={2.5} /> Our solution
-                  </span>
-                  <p className="mt-3 leading-relaxed text-navy/70">
-                    {p.solution}
-                  </p>
-                </div>
+                <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-electric">
+                  <Check size={14} strokeWidth={2.5} /> Our solution
+                </span>
+                <p className="mt-2.5 flex-1 text-sm leading-relaxed text-navy/65">
+                  {p.solution}
+                </p>
               </div>
             </Reveal>
           ))}
-        </div>
+
+          {/* Balancing CTA tile â†’ leads to the detailed case studies */}
+          <Reveal delay={0.08}>
+            <Link
+              href="/case-studies"
+              className="group flex h-full flex-col items-center justify-center rounded-2xl border border-dashed border-navy/15 bg-navy/[0.015] p-6 text-center transition-colors duration-300 hov:border-electric/40 hov:bg-electric/[0.03]"
+            >
+              <p className="font-display text-lg font-semibold text-navy">
+                Facing a different challenge?
+              </p>
+              <p className="mt-1.5 text-sm leading-relaxed text-navy/55">
+                See how we&apos;ve turned real problems into measurable results.
+              </p>
+              <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-electric">
+                View case studies
+                <ArrowRight
+                  size={15}
+                  className="transition-transform duration-300 group-hov:translate-x-1"
+                />
+              </span>
+            </Link>
+          </Reveal>
+        </RevealGroup>
       </div>
     </section>
   );

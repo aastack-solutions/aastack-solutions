@@ -1,229 +1,168 @@
-"use client";
-
-import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, ArrowLeft } from "lucide-react";
+import { Globe, ArrowUpRight } from "lucide-react";
 import Reveal from "./Reveal";
-import Button from "./Button";
 
 type Project = {
   name: string;
   domain: string;
   category: string;
-  tag: string;
+  tag: Tag;
   metric: { value: string; label: string };
   desc: string;
   image: string;
-  accent: string;
 };
+
+type Tag = "AI" | "Web" | "Mobile" | "SEO";
 
 const PROJECTS: Project[] = [
   {
-    name: "NovaAssist",
-    domain: "novaassist.ai",
+    name: "Drugstore Restaurant",
+    domain: "drugstore-restaurant.com",
     category: "AI Chatbot",
     tag: "AI",
-    metric: { value: "24/7", label: "Instant replies" },
-    desc: "A demo AI assistant that understands customer questions in plain language and answers them instantly, around the clock. It handles FAQs, books appointments, and hands tricky chats to a human, all from one tidy chat window.",
+    metric: { value: "24/7", label: "Bookings & menu help" },
+    desc: "A custom AI chatbot for their website that recommends dishes based on each guest's taste and dietary needs, and lets visitors reserve a table in just a few messages, fully automated, day and night.",
     image: "/images/demo-chatbot.svg",
-    accent: "text-electric",
   },
   {
-    name: "Lumen Studio",
-    domain: "lumenstudio.app",
+    name: "Barham Dental",
+    domain: "barhamdental.com",
     category: "Web Development",
     tag: "Web",
-    metric: { value: "98", label: "Performance score" },
-    desc: "A demo SaaS dashboard built for speed and clarity, with live analytics, clean data cards, and a responsive layout that feels effortless on any screen. A sample of how we turn complex data into simple decisions.",
+    metric: { value: "100", label: "Performance score" },
+    desc: "Rebuilt the website with a clean, fast, mobile friendly interface, optimized it for SEO, and set it up on Google Search Console so it gets properly indexed and starts ranking in search.",
     image: "/images/demo-web.svg",
-    accent: "text-violet",
   },
   {
-    name: "PulseFit",
-    domain: "pulsefit.app",
+    name: "Carpool Pakistan",
+    domain: "carpoolpakistan.app",
     category: "Mobile App",
     tag: "Mobile",
-    metric: { value: "4.9", label: "Sample rating" },
-    desc: "A demo mobile experience with goal tracking, daily streaks, and smart reminders, wrapped in a smooth, modern interface. Built to show how an app can keep users coming back, day after day.",
+    metric: { value: "60%", label: "Lower cost per rider" },
+    desc: "A carpooling platform that matches passengers traveling along the same route, so one trip can carry multiple riders and everyone shares the cost instead of paying for a full ride alone.",
     image: "/images/demo-app.svg",
-    accent: "text-cyan",
   },
   {
-    name: "PeakRank",
-    domain: "peakrank.io",
-    category: "SEO",
+    name: "Google Business Profile SEO",
+    domain: "business.google.com",
+    category: "Local SEO",
     tag: "SEO",
-    metric: { value: "#1", label: "Sample ranking" },
-    desc: "A demo SEO campaign view: keyword tracking, rising traffic, and a climb from invisible to the top of the results. A snapshot of how we help businesses get found by the right people.",
+    metric: { value: "420%", label: "Profile growth" },
+    desc: "Took over and optimized the Google Business Profile end to end, categories, posts, photos, reviews, and local keywords, to put it in front of the right local audience.",
     image: "/images/demo-seo.svg",
-    accent: "text-electric",
+  },
+  {
+    name: "CityDental",
+    domain: "citydental.com",
+    category: "Web Development",
+    tag: "Web",
+    metric: { value: "24/7", label: "Online appointments" },
+    desc: "Designed and built a modern website from scratch with a built-in appointment booking system, so patients can explore services and reserve a slot online anytime.",
+    image: "/images/demo-web.svg",
   },
 ];
 
-const TAG_STYLES: Record<string, string> = {
-  AI: "bg-electric/15 text-electric ring-electric/30",
-  Web: "bg-violet/15 text-violet ring-violet/30",
-  Mobile: "bg-cyan/15 text-cyan ring-cyan/30",
-  SEO: "bg-amber-500/15 text-amber-600 ring-amber-400/30",
-};
-
-const AUTOPLAY_MS = 6500;
-
-const slide = {
-  enter: (dir: number) => ({ opacity: 0, x: dir > 0 ? 70 : -70 }),
-  center: { opacity: 1, x: 0 },
-  exit: (dir: number) => ({ opacity: 0, x: dir > 0 ? -70 : 70 }),
+const TAG_STYLES: Record<
+  Tag,
+  { pill: string; bar: string; metric: string; chrome: string }
+> = {
+  AI: {
+    pill: "bg-electric/10 text-electric ring-electric/20",
+    bar: "from-electric to-cyan",
+    metric: "text-electric",
+    chrome: "bg-electric/15 text-electric ring-electric/30",
+  },
+  Web: {
+    pill: "bg-violet/10 text-violet ring-violet/20",
+    bar: "from-violet to-electric",
+    metric: "text-violet",
+    chrome: "bg-violet/15 text-violet ring-violet/30",
+  },
+  Mobile: {
+    pill: "bg-cyan/10 text-cyan ring-cyan/20",
+    bar: "from-cyan to-electric",
+    metric: "text-cyan",
+    chrome: "bg-cyan/15 text-cyan ring-cyan/30",
+  },
+  SEO: {
+    pill: "bg-amber-500/10 text-amber-600 ring-amber-400/20",
+    bar: "from-amber-400 to-amber-500",
+    metric: "text-amber-600",
+    chrome: "bg-amber-500/15 text-amber-600 ring-amber-400/30",
+  },
 };
 
 export default function Projects() {
-  const [[index, dir], setState] = useState<[number, number]>([0, 0]);
-  const [paused, setPaused] = useState(false);
-  const count = PROJECTS.length;
-  const project = PROJECTS[index];
-
-  const paginate = useCallback(
-    (step: number) => setState(([i]) => [(i + step + count) % count, step]),
-    [count]
-  );
-  const goTo = useCallback(
-    (next: number) => setState(([i]) => [next, next > i ? 1 : -1]),
-    []
-  );
-
-  useEffect(() => {
-    if (paused) return;
-    const id = window.setInterval(() => paginate(1), AUTOPLAY_MS);
-    return () => window.clearInterval(id);
-  }, [paused, paginate, index]);
-
   return (
-    <section id="projects" className="py-20 sm:py-28">
-      <div className="mx-auto max-w-7xl px-5 sm:px-8">
-        {/* Centered heading */}
-        <Reveal className="mx-auto max-w-2xl text-center">
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-electric">
-            Our Work
-          </p>
-          <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-navy sm:text-4xl lg:text-5xl">
-            Our <span className="text-accent">Impactful Projects</span>
-          </h2>
-          <p className="mt-4 text-lg text-navy/55">
-            A look at the kind of digital products we build, demo previews of AI,
-            web, mobile, and SEO work designed to drive real growth.
-          </p>
-        </Reveal>
+    <section id="projects" className="py-16 sm:py-20">
+      <div className="mx-auto max-w-6xl px-5 sm:px-8">
+        <div className="grid gap-7 sm:gap-8 lg:grid-cols-2">
+          {PROJECTS.map((p, i) => {
+            const s = TAG_STYLES[p.tag];
+            return (
+              <Reveal key={p.name} delay={(i % 2) * 0.1}>
+                <article className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-navy/10 bg-surface shadow-card transition-all duration-300 hov:-translate-y-1.5 hov:border-electric/30 hov:shadow-card-hover">
+                  {/* Accent bar that fills on hover */}
+                  <span
+                    className={`absolute inset-x-0 top-0 z-10 h-1 origin-left scale-x-0 bg-gradient-to-r ${s.bar} transition-transform duration-300 group-hov:scale-x-100`}
+                    aria-hidden
+                  />
 
-        {/* Slider */}
-        <Reveal delay={0.1} className="mt-14">
-          <div
-            className="relative overflow-hidden rounded-[2rem] border border-navy/10 bg-white/70 shadow-card backdrop-blur-sm"
-            onMouseEnter={() => setPaused(true)}
-            onMouseLeave={() => setPaused(false)}
-            onFocusCapture={() => setPaused(true)}
-            onBlurCapture={() => setPaused(false)}
-          >
-            {/* soft brand glow */}
-            <div className="pointer-events-none absolute -left-24 -top-24 h-64 w-64 rounded-full bg-electric/10 blur-3xl" aria-hidden />
-            <div className="pointer-events-none absolute -bottom-24 -right-24 h-64 w-64 rounded-full bg-violet/10 blur-3xl" aria-hidden />
+                  {/* Browser-style preview */}
+                  <BrowserMockup project={p} />
 
-            <div className="relative p-6 sm:p-10 lg:p-12">
-              <AnimatePresence mode="wait" custom={dir} initial={false}>
-                <motion.div
-                  key={index}
-                  custom={dir}
-                  variants={slide}
-                  initial="enter"
-                  animate="center"
-                  exit="exit"
-                  transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                  className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16"
-                >
-                  {/* Details (left) */}
-                  <div className="order-2 lg:order-1">
-                    <span className="inline-flex items-center rounded-full bg-electric/10 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-electric ring-1 ring-electric/20">
-                      {project.category}
+                  {/* Body */}
+                  <div className="flex flex-1 flex-col p-6 sm:p-7">
+                    <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-2.5">
+                      <span
+                        className={`inline-flex max-w-full items-center truncate rounded-full px-3 py-1 text-[0.7rem] font-semibold uppercase tracking-[0.12em] ring-1 ring-inset sm:text-xs sm:tracking-[0.14em] ${s.pill}`}
+                      >
+                        {p.category}
+                      </span>
+                      <span className="inline-flex shrink-0 items-baseline gap-1.5 rounded-xl border border-navy/10 bg-navy/[0.025] px-3 py-1.5">
+                        <span
+                          className={`font-display text-lg font-extrabold ${s.metric}`}
+                        >
+                          {p.metric.value}
+                        </span>
+                        <span className="text-xs font-medium text-navy/50">
+                          {p.metric.label}
+                        </span>
+                      </span>
+                    </div>
+
+                    <div className="mt-4 flex items-center gap-2.5">
+                      <h3 className="font-display text-xl font-bold tracking-tight text-navy sm:text-2xl">
+                        {p.name}
+                      </h3>
+                      <ArrowUpRight
+                        size={18}
+                        className="text-navy/30 transition-all duration-300 group-hov:-translate-y-0.5 group-hov:translate-x-0.5 group-hov:text-electric"
+                      />
+                    </div>
+                    <span className="mt-1 inline-flex items-center gap-1.5 text-sm text-navy/45">
+                      <Globe size={13} />
+                      {p.domain}
                     </span>
-                    <h3 className="mt-5 font-display text-3xl font-bold tracking-tight text-navy sm:text-4xl">
-                      {project.name}
-                    </h3>
-                    <p className="mt-5 max-w-xl leading-relaxed text-navy/60">
-                      {project.desc}
+
+                    <p className="mt-4 flex-1 text-[0.95rem] leading-relaxed text-navy/60">
+                      {p.desc}
                     </p>
-
-                    <div className="mt-7 inline-flex items-baseline gap-2.5 rounded-2xl border border-navy/10 bg-navy/[0.025] px-5 py-3">
-                      <span className={`font-display text-3xl font-extrabold ${project.accent}`}>
-                        {project.metric.value}
-                      </span>
-                      <span className="text-sm font-medium text-navy/55">
-                        {project.metric.label}
-                      </span>
-                    </div>
-
-                    <div className="mt-9">
-                      <Button href="/work" variant="primary" size="lg">
-                        View Portfolio
-                        <ArrowRight
-                          size={18}
-                          className="transition-transform duration-300 group-hover:translate-x-1"
-                        />
-                      </Button>
-                    </div>
                   </div>
-
-                  {/* Demo mockup (right) */}
-                  <div className="order-1 lg:order-2">
-                    <BrowserMockup project={project} />
-                  </div>
-                </motion.div>
-              </AnimatePresence>
-            </div>
-          </div>
-
-          {/* Controls: arrow · dots · arrow */}
-          <div className="mt-8 flex items-center justify-center gap-5">
-            <Button
-              variant="outline"
-              size="icon"
-              aria-label="Previous project"
-              onClick={() => paginate(-1)}
-            >
-              <ArrowLeft size={20} />
-            </Button>
-
-            <div className="flex items-center gap-2.5">
-              {PROJECTS.map((p, i) => (
-                <button
-                  key={p.name}
-                  type="button"
-                  aria-label={`Go to ${p.name}`}
-                  aria-current={i === index}
-                  onClick={() => goTo(i)}
-                  className={`h-2 rounded-full transition-all duration-300 ${
-                    i === index ? "w-8 bg-electric" : "w-2 bg-navy/20 hover:bg-navy/40"
-                  }`}
-                />
-              ))}
-            </div>
-
-            <Button
-              variant="outline"
-              size="icon"
-              aria-label="Next project"
-              onClick={() => paginate(1)}
-            >
-              <ArrowRight size={20} />
-            </Button>
-          </div>
-        </Reveal>
+                </article>
+              </Reveal>
+            );
+          })}
+        </div>
       </div>
     </section>
   );
 }
 
 function BrowserMockup({ project }: { project: Project }) {
+  const s = TAG_STYLES[project.tag];
   return (
-    <div className="group overflow-hidden rounded-2xl border border-navy/10 bg-white shadow-card transition-shadow duration-300 hover:shadow-card-hover">
+    <div className="relative overflow-hidden border-b border-navy/10 bg-white">
       {/* Top bar */}
       <div className="flex items-center gap-3 border-b border-navy/10 bg-navy/[0.025] px-4 py-3">
         <span className="flex gap-1.5">
@@ -236,21 +175,21 @@ function BrowserMockup({ project }: { project: Project }) {
           {project.domain}
         </span>
         <span
-          className={`rounded-full px-2.5 py-0.5 text-[0.65rem] font-semibold uppercase tracking-wider ring-1 ring-inset ${TAG_STYLES[project.tag]}`}
+          className={`rounded-full px-2.5 py-0.5 text-[0.65rem] font-semibold uppercase tracking-wider ring-1 ring-inset ${s.chrome}`}
         >
           {project.tag}
         </span>
       </div>
 
       {/* Demo screenshot */}
-      <div className="relative aspect-[1000/640] w-full overflow-hidden bg-ink">
+      <div className="relative aspect-[1000/560] w-full overflow-hidden bg-ink">
         <Image
           src={project.image}
           alt={`${project.name} demo preview`}
           fill
           unoptimized
           sizes="(max-width: 1024px) 100vw, 50vw"
-          className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+          className="object-cover transition-transform duration-500 group-hov:scale-[1.04]"
         />
       </div>
     </div>
