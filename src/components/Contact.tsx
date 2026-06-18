@@ -1,33 +1,57 @@
-﻿"use client";
+"use client";
 
 import { useState, type FormEvent } from "react";
-import { Mail, Phone, Send, CheckCircle2, Clock } from "lucide-react";
+import {
+  Mail,
+  Phone,
+  Send,
+  CheckCircle2,
+  Clock,
+  ArrowUpRight,
+  ChevronDown,
+} from "lucide-react";
 import { motion } from "framer-motion";
 import LinkedinIcon from "./LinkedinIcon";
 import ChatbotLottie from "./ChatbotLottie";
+import Reveal from "./Reveal";
 import { CONTACT, SOCIAL } from "@/data/site";
 
-const SERVICES = ["AI", "Web & App", "SEO", "Other"];
+const INQUIRIES = [
+  "General inquiry",
+  "AI solutions",
+  "Web & App development",
+  "SEO & marketing",
+  "Other",
+];
 
 const inputClass =
-  "w-full rounded-xl border border-navy/15 bg-white px-4 py-3 text-[0.95rem] text-navy placeholder:text-navy/40 outline-none transition-all focus:border-electric focus:ring-2 focus:ring-electric/20";
+  "w-full rounded-xl border border-navy/12 bg-white/80 px-4 py-3 text-[0.95rem] text-navy placeholder:text-navy/40 outline-none transition-all duration-300 hover:border-navy/25 focus:border-electric focus:bg-white focus:ring-4 focus:ring-electric/10";
 
 export default function Contact() {
   const [sent, setSent] = useState(false);
-  const [service, setService] = useState("Web & App");
+  const [inquiry, setInquiry] = useState(INQUIRIES[0]);
+  const [notRobot, setNotRobot] = useState(false);
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    // Guard: require the human check before submitting.
+    if (!notRobot) return;
     // Front-end only demo: wire to your email / form backend here.
     setSent(true);
   }
 
   return (
     <section id="contact" className="relative overflow-hidden py-20 text-navy sm:py-28">
+      {/* Soft elegant backdrop blobs */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
+        <div className="absolute -left-24 top-10 h-72 w-72 rounded-full bg-electric/10 blur-3xl" />
+        <div className="absolute -right-20 bottom-0 h-80 w-80 rounded-full bg-violet/10 blur-3xl" />
+      </div>
+
       <div className="relative mx-auto max-w-6xl px-5 sm:px-8">
-        <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
+        <div className="grid items-start gap-10 lg:grid-cols-2 lg:gap-16">
           {/* Left: copy */}
-          <div>
+          <Reveal direction="right">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-electric">
               Contact
             </p>
@@ -40,141 +64,236 @@ export default function Contact() {
               hours.
             </p>
 
-            <div className="mt-8 space-y-4">
-              <a
+            <div className="mt-8 space-y-3">
+              <ContactRow
                 href={`mailto:${CONTACT.email}`}
-                className="flex items-center gap-3 break-all text-navy/85 transition-colors hover:text-electric"
-              >
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-electric/10 text-electric">
-                  <Mail size={18} />
-                </span>
-                {CONTACT.email}
-              </a>
-              <a
+                icon={<Mail size={18} />}
+                label="Email us"
+                value={CONTACT.email}
+              />
+              <ContactRow
                 href={`tel:${CONTACT.phoneHref}`}
-                className="flex items-center gap-3 text-navy/85 transition-colors hover:text-electric"
-              >
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-electric/10 text-electric">
-                  <Phone size={18} />
-                </span>
-                {CONTACT.phone}
-              </a>
-              <a
+                icon={<Phone size={18} />}
+                label="Call us"
+                value={CONTACT.phone}
+              />
+              <ContactRow
                 href={SOCIAL.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-3 text-navy/85 transition-colors hover:text-electric"
-              >
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-electric/10 text-electric">
-                  <LinkedinIcon size={18} />
-                </span>
-                LinkedIn
-              </a>
-              <p className="flex items-center gap-3 text-navy/60">
+                external
+                icon={<LinkedinIcon size={18} />}
+                label="Connect"
+                value="LinkedIn"
+              />
+
+              <div className="flex items-center gap-3 rounded-2xl border border-transparent px-4 py-3 text-navy/60">
                 <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-electric/10 text-electric">
                   <Clock size={18} />
                 </span>
-                Replies within 24 hours
-              </p>
+                <span className="text-sm">Replies within 24 hours</span>
+              </div>
             </div>
 
-            {/* Friendly chatbot â€” nods at the visitor while they reach out */}
+            {/* Friendly chatbot — nods at the visitor while they reach out */}
             <ChatbotLottie className="mt-6 hidden w-full max-w-xs sm:block" />
-          </div>
+          </Reveal>
 
           {/* Right: form */}
-          <div className="card rounded-3xl p-6 sm:p-8">
-            {sent ? (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.96 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="flex h-full min-h-[20rem] flex-col items-center justify-center text-center"
-              >
-                <CheckCircle2 size={56} className="text-electric" />
-                <h3 className="mt-5 font-display text-2xl font-bold">
-                  Message sent!
-                </h3>
-                <p className="mt-2 max-w-xs text-navy/70">
-                  Thanks for reaching out. We&apos;ll get back to you within 24
-                  hours.
-                </p>
-                <button
-                  type="button"
-                  onClick={() => setSent(false)}
-                  className="mt-6 rounded-full border border-navy/20 px-5 py-2.5 text-sm font-semibold transition-colors hover:bg-navy/10"
+          <Reveal direction="left" delay={0.1}>
+            <div className="card relative overflow-hidden rounded-3xl p-6 transition-shadow duration-500 hover:shadow-card-hover sm:p-8">
+              {/* Accent top bar */}
+              <span
+                aria-hidden
+                className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-electric via-violet to-electric"
+              />
+              {sent ? (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.96 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                  className="flex h-full min-h-[20rem] flex-col items-center justify-center text-center"
                 >
-                  Send another
-                </button>
-              </motion.div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-5">
-                <div className="grid gap-5 sm:grid-cols-2">
-                  <Field label="Name">
-                    <input
-                      type="text"
-                      name="name"
-                      required
-                      placeholder="Your name"
-                      className={inputClass}
-                    />
-                  </Field>
-                  <Field label="Email">
-                    <input
-                      type="email"
-                      name="email"
-                      required
-                      placeholder="you@company.com"
-                      className={inputClass}
-                    />
-                  </Field>
-                </div>
-
-                <Field label="Service needed">
-                  <div className="flex flex-wrap gap-2">
-                    {SERVICES.map((s) => (
-                      <button
-                        type="button"
-                        key={s}
-                        onClick={() => setService(s)}
-                        className={`rounded-full px-4 py-2 text-sm font-medium transition-all ${
-                          service === s
-                            ? "bg-electric text-white shadow-soft"
-                            : "bg-navy/10 text-navy/75 hover:bg-navy/15"
-                        }`}
-                      >
-                        {s}
-                      </button>
-                    ))}
+                  <motion.span
+                    initial={{ scale: 0, rotate: -20 }}
+                    animate={{ scale: 1, rotate: 0 }}
+                    transition={{ delay: 0.1, type: "spring", stiffness: 200, damping: 14 }}
+                    className="flex h-20 w-20 items-center justify-center rounded-full bg-electric/10"
+                  >
+                    <CheckCircle2 size={44} className="text-electric" />
+                  </motion.span>
+                  <h3 className="mt-5 font-display text-2xl font-bold">
+                    Message sent!
+                  </h3>
+                  <p className="mt-2 max-w-xs text-navy/70">
+                    Thanks for reaching out. We&apos;ll get back to you within 24
+                    hours.
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => setSent(false)}
+                    className="mt-6 rounded-full border border-navy/20 px-5 py-2.5 text-sm font-semibold transition-colors hover:bg-navy/5"
+                  >
+                    Send another
+                  </button>
+                </motion.div>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-5">
+                  <div className="mb-1">
+                    <h3 className="font-display text-xl font-bold tracking-tight">
+                      Send us a message
+                    </h3>
+                    <p className="mt-1 text-sm text-navy/55">
+                      Fill in the details and we&apos;ll reply shortly.
+                    </p>
                   </div>
-                  <input type="hidden" name="service" value={service} />
-                </Field>
 
-                <Field label="Message">
-                  <textarea
-                    name="message"
-                    required
-                    rows={4}
-                    placeholder="Tell us about your project"
-                    className={`${inputClass} resize-none`}
-                  />
-                </Field>
+                  <div className="grid gap-5 sm:grid-cols-2">
+                    <Field label="Name">
+                      <input
+                        type="text"
+                        name="name"
+                        required
+                        placeholder="Your name"
+                        className={inputClass}
+                      />
+                    </Field>
+                    <Field label="Email">
+                      <input
+                        type="email"
+                        name="email"
+                        required
+                        placeholder="you@company.com"
+                        className={inputClass}
+                      />
+                    </Field>
+                  </div>
 
-                <button
-                  type="submit"
-                  className="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-electric px-6 py-3.5 text-base font-semibold text-white shadow-soft transition-colors hover:bg-electric/90"
-                >
-                  Send
-                  <Send
-                    size={17}
-                    className="transition-transform group-hov:translate-x-0.5 group-hov:-translate-y-0.5"
-                  />
-                </button>
-              </form>
-            )}
-          </div>
+                  <div className="grid gap-5 sm:grid-cols-2">
+                    <Field label="Contact number">
+                      <input
+                        type="tel"
+                        name="phone"
+                        required
+                        placeholder="+92 300 1234567"
+                        className={inputClass}
+                      />
+                    </Field>
+                    <Field label="Inquiry type">
+                      <div className="relative">
+                        <select
+                          name="inquiry"
+                          value={inquiry}
+                          onChange={(e) => setInquiry(e.target.value)}
+                          className={`${inputClass} cursor-pointer appearance-none pr-10`}
+                        >
+                          {INQUIRIES.map((s) => (
+                            <option key={s} value={s}>
+                              {s}
+                            </option>
+                          ))}
+                        </select>
+                        <ChevronDown
+                          size={18}
+                          aria-hidden
+                          className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-navy/40"
+                        />
+                      </div>
+                    </Field>
+                  </div>
+
+                  <Field label="Message">
+                    <textarea
+                      name="message"
+                      required
+                      rows={4}
+                      placeholder="Tell us about your project"
+                      className={`${inputClass} resize-none`}
+                    />
+                  </Field>
+
+                  {/* Simple human check (front-end only demo) */}
+                  <button
+                    type="button"
+                    onClick={() => setNotRobot((v) => !v)}
+                    aria-pressed={notRobot}
+                    className="flex w-full items-center gap-3 rounded-xl border border-navy/12 bg-white/80 px-4 py-3.5 text-left transition-all duration-300 hover:border-navy/25"
+                  >
+                    <span
+                      className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-md border transition-all duration-300 ${
+                        notRobot
+                          ? "border-electric bg-electric text-white"
+                          : "border-navy/30 bg-white"
+                      }`}
+                    >
+                      {notRobot && <CheckCircle2 size={16} />}
+                    </span>
+                    <span className="text-sm font-medium text-navy/75">
+                      I&apos;m not a robot
+                    </span>
+                    <span className="ml-auto text-[0.65rem] font-medium uppercase tracking-wide text-navy/35">
+                      Privacy
+                    </span>
+                  </button>
+
+                  <button
+                    type="submit"
+                    disabled={!notRobot}
+                    className="group flex w-full items-center justify-center gap-2 rounded-full bg-electric px-6 py-3.5 text-base font-semibold text-white shadow-soft transition-all duration-300 hover:-translate-y-0.5 hover:bg-electric/90 hover:shadow-card-hover active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0 disabled:hover:bg-electric"
+                  >
+                    Send message
+                    <Send
+                      size={17}
+                      className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                    />
+                  </button>
+
+                  <p className="text-center text-xs text-navy/45">
+                    We respect your privacy. No spam, ever.
+                  </p>
+                </form>
+              )}
+            </div>
+          </Reveal>
         </div>
       </div>
     </section>
+  );
+}
+
+function ContactRow({
+  href,
+  icon,
+  label,
+  value,
+  external,
+}: {
+  href: string;
+  icon: React.ReactNode;
+  label: string;
+  value: string;
+  external?: boolean;
+}) {
+  return (
+    <a
+      href={href}
+      {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+      className="group flex items-center gap-3 rounded-2xl border border-transparent px-4 py-3 transition-all duration-300 hover:border-electric/15 hover:bg-white/70 hover:shadow-soft"
+    >
+      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-electric/10 text-electric transition-colors duration-300 group-hover:bg-electric group-hover:text-white">
+        {icon}
+      </span>
+      <span className="min-w-0">
+        <span className="block text-xs font-medium uppercase tracking-wide text-navy/45">
+          {label}
+        </span>
+        <span className="block break-all text-[0.95rem] font-medium text-navy/85 transition-colors group-hover:text-electric">
+          {value}
+        </span>
+      </span>
+      <ArrowUpRight
+        size={16}
+        className="ml-auto shrink-0 text-navy/30 opacity-0 transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-electric group-hover:opacity-100"
+      />
+    </a>
   );
 }
 

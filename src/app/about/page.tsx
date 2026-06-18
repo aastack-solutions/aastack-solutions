@@ -7,7 +7,7 @@ import CoreValues from "@/components/CoreValues";
 import TechStack from "@/components/TechStack";
 import Testimonials from "@/components/Testimonials";
 import CTABand from "@/components/CTABand";
-import heroImg from "../../../public/images/hero.jpg";
+import heroImg from "../../../public/images/about-team.jpg";
 
 export const metadata: Metadata = {
   title: "About",

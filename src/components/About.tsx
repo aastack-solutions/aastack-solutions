@@ -204,6 +204,70 @@ export default function About() {
           </RevealGroup>
         </div>
 
+        {/* Who we are */}
+        <Reveal delay={0.05} className="mt-28 mb-16 sm:mt-32 sm:mb-20">
+          <div className="relative">
+            {/* Ambient accents */}
+            <div
+              className="pointer-events-none absolute -right-16 -top-20 -z-10 h-64 w-64 rounded-full bg-gradient-to-br from-electric/12 to-transparent blur-3xl"
+              aria-hidden
+            />
+            <div
+              className="pointer-events-none absolute -bottom-24 -left-16 -z-10 h-64 w-64 rounded-full bg-gradient-to-tr from-violet/10 to-transparent blur-3xl"
+              aria-hidden
+            />
+
+            <div className="relative grid gap-10 lg:grid-cols-12 lg:items-start lg:gap-14">
+              {/* Identity */}
+              <div className="lg:col-span-5">
+                <span className="inline-flex items-center gap-2 rounded-full bg-electric/[0.08] px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-electric ring-1 ring-inset ring-electric/15">
+                  Who we are
+                </span>
+                <h3 className="mt-5 font-display text-2xl font-bold leading-tight tracking-tight text-navy sm:text-3xl">
+                  A digital product studio
+                </h3>
+                <p className="mt-4 leading-relaxed text-navy/60">
+                  Engineering, design, and AI under one roof, focused on building
+                  software that moves your business forward.
+                </p>
+
+                <div className="mt-7 flex items-start gap-3.5 rounded-2xl bg-gradient-to-br from-electric/[0.07] to-violet/[0.05] p-5 ring-1 ring-inset ring-electric/10">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white text-electric shadow-soft ring-1 ring-navy/[0.06]">
+                    <Target size={18} />
+                  </span>
+                  <p className="text-sm leading-relaxed text-navy/70">
+                    <span className="font-semibold text-navy">Our mission:</span>{" "}
+                    to make advanced technology accessible and profitable for
+                    every business.
+                  </p>
+                </div>
+              </div>
+
+              {/* Narrative */}
+              <div className="lg:col-span-7 lg:border-l lg:border-navy/[0.08] lg:pl-14">
+                <Quote
+                  size={40}
+                  className="text-electric/20"
+                  aria-hidden
+                  fill="currentColor"
+                />
+                <p className="mt-4 text-lg leading-relaxed text-navy/80 sm:text-xl">
+                  AAStack is a team of developers and designers building fast,
+                  clean, responsive web and mobile applications for businesses
+                  that want to grow.
+                </p>
+                <p className="mt-4 leading-relaxed text-navy/60">
+                  We pair modern engineering with thoughtful design, and
+                  increasingly weave AI into our builds to automate the work that
+                  used to eat up your team&apos;s time. Our approach is simple:
+                  deliver high quality work, on time, that actually solves your
+                  problem, and stay a reliable partner long after launch.
+                </p>
+              </div>
+            </div>
+          </div>
+        </Reveal>
+
         {/* Technologies marquee */}
         <div className="mt-20">
           <Reveal className="mx-auto max-w-2xl text-center">
@@ -226,60 +290,6 @@ export default function About() {
             <MarqueeRow items={SKILL_ROWS[2]} duration="58s" />
           </div>
         </div>
-
-        {/* Founder + mission */}
-        <Reveal delay={0.05} className="mt-20">
-          <div className="relative">
-            <div
-              className="absolute -right-10 -top-16 -z-10 h-52 w-52 rounded-full bg-gradient-to-br from-electric/12 to-transparent blur-3xl"
-              aria-hidden
-            />
-
-            <div className="relative grid gap-9 lg:grid-cols-12 lg:items-start lg:gap-12">
-              {/* Identity */}
-              <div className="lg:col-span-4">
-                <div className="flex items-center gap-4">
-                  <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-electric to-violet font-display text-xl font-bold text-white shadow-soft">
-                    AA
-                  </div>
-                  <div>
-                    <p className="text-xs font-semibold uppercase tracking-wider text-electric">
-                      About the Founder
-                    </p>
-                    <h3 className="font-display text-xl font-bold text-navy">
-                      Mobile &amp; Web Developer
-                    </h3>
-                  </div>
-                </div>
-
-                <div className="mt-6 flex items-start gap-3 rounded-2xl bg-electric/[0.05] p-4 ring-1 ring-inset ring-electric/10">
-                  <Target size={18} className="mt-0.5 shrink-0 text-electric" />
-                  <p className="text-sm leading-relaxed text-navy/70">
-                    <span className="font-semibold text-navy">Our mission:</span>{" "}
-                    to make advanced technology accessible and profitable for
-                    every business.
-                  </p>
-                </div>
-              </div>
-
-              {/* Bio */}
-              <div className="lg:col-span-8 lg:border-l lg:border-navy/[0.08] lg:pl-12">
-                <Quote size={28} className="text-electric/25" aria-hidden />
-                <p className="mt-3 text-lg leading-relaxed text-navy/75">
-                  I&apos;m a passionate Mobile &amp; Web Developer who builds
-                  responsive, user friendly applications. I craft fast, clean,
-                  modern apps tailored to each client&apos;s needs, and
-                  increasingly bring AI into them to automate the work that used
-                  to eat up your time.
-                </p>
-                <p className="mt-4 leading-relaxed text-navy/60">
-                  My goal is simple: deliver high quality work, on time, that
-                  actually solves your problem.
-                </p>
-              </div>
-            </div>
-          </div>
-        </Reveal>
       </div>
     </section>
   );

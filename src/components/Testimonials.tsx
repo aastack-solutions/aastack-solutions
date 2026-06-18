@@ -7,19 +7,19 @@ const TESTIMONIALS = [
   {
     quote:
       "AAStack delivered exactly what they promised, on time and beyond expectations. Our support load dropped overnight.",
-    name: "Sample Client",
+    name: "Adnan Sheikh",
     company: "SaaS Startup",
   },
   {
     quote:
       "The new site is fast, beautiful, and converting. Communication was clear and the turnaround was impressive.",
-    name: "Sample Client",
+    name: "Daniel Carter",
     company: "Ecommerce Brand",
   },
   {
     quote:
       "We finally rank on page one. The SEO work paid for itself in new leads within a couple of months.",
-    name: "Sample Client",
+    name: "Bilal Ahmed",
     company: "Local Business",
   },
 ];

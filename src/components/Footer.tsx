@@ -15,10 +15,15 @@ const NAV_LINKS = [
 
 const SERVICES = [
   { label: "Web Development", href: "/services" },
-  { label: "Mobile Apps", href: "/services" },
-  { label: "UI/UX Design", href: "/services" },
-  { label: "SEO & Growth", href: "/services" },
-  { label: "Cloud & DevOps", href: "/services" },
+  { label: "App Development", href: "/services" },
+  { label: "AI Automation", href: "/services" },
+  { label: "Chatbots & Voice Bots", href: "/services" },
+  { label: "LinkedIn Automation", href: "/services" },
+  { label: "YouTube Automation", href: "/services" },
+  { label: "Social Media Automation", href: "/services" },
+  { label: "WhatsApp Automation", href: "/services" },
+  { label: "Workflow Automation", href: "/services" },
+  { label: "SEO Optimization", href: "/services" },
 ];
 
 export default function Footer() {
@@ -75,11 +80,11 @@ export default function Footer() {
           </div>
 
           {/* Services links */}
-          <div className="lg:col-span-2">
+          <div className="col-span-2 sm:col-span-1 lg:col-span-3">
             <h3 className="text-xs font-semibold uppercase tracking-wider text-navy/40">
               Services
             </h3>
-            <ul className="mt-4 space-y-2.5">
+            <ul className="mt-4 grid grid-cols-1 gap-x-6 gap-y-2.5 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
               {SERVICES.map((l) => (
                 <li key={l.label}>
                   <Link
@@ -94,7 +99,7 @@ export default function Footer() {
           </div>
 
           {/* Contact */}
-          <div className="col-span-2 sm:col-span-3 lg:col-span-4">
+          <div className="col-span-2 sm:col-span-3 lg:col-span-3">
             <h3 className="text-xs font-semibold uppercase tracking-wider text-navy/40">
               Get in touch
             </h3>

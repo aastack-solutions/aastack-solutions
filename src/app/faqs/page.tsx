@@ -6,7 +6,7 @@ import FAQ from "@/components/FAQ";
 import { FAQS } from "@/data/faqs";
 import CTABand from "@/components/CTABand";
 import { CALENDLY_URL } from "@/data/site";
-import heroImg from "../../../public/images/service2.jpg";
+import heroImg from "../../../public/images/faqs-hero.jpg";
 
 // Structured data so search engines can show these as rich FAQ results.
 const faqJsonLd = {
@@ -54,7 +54,7 @@ export default function FAQsPage() {
           Still have questions? Talk to us
           <ArrowRight
             size={18}
-            className="transition-transform group-hov:translate-x-1"
+            className="transition-transform group-hover:translate-x-1"
           />
         </Link>
       </PageHero>
