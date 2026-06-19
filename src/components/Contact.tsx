@@ -41,7 +41,7 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="relative overflow-hidden py-20 text-navy sm:py-28">
+    <section id="contact" className="relative overflow-hidden py-14 text-navy sm:py-28">
       {/* Soft elegant backdrop blobs */}
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute -left-24 top-10 h-72 w-72 rounded-full bg-electric/10 blur-3xl" />

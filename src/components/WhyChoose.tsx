@@ -43,7 +43,7 @@ const REASONS = [
 
 export default function WhyChoose() {
   return (
-    <section className="relative overflow-hidden py-20 text-navy sm:py-28">
+    <section className="relative overflow-hidden py-14 text-navy sm:py-28">
       <div
         className="absolute inset-0 opacity-[0.04]"
         style={{

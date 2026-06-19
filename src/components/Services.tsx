@@ -61,7 +61,7 @@ const SERVICES = [
 
 export default function Services() {
   return (
-    <section id="services" className="relative py-20 sm:py-28">
+    <section id="services" className="relative py-14 sm:py-28">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
           <Reveal className="max-w-xl">
@@ -93,7 +93,7 @@ export default function Services() {
         <RevealGroup className="mt-12 grid gap-6 sm:mt-16 sm:gap-7 lg:grid-cols-2">
           {SERVICES.map((s, i) => (
             <Reveal key={s.title} delay={i * 0.1}>
-              <article className="group card relative flex h-full flex-col overflow-hidden rounded-3xl p-8 transition-all duration-300 hov:-translate-y-1.5 hov:border-electric/40 hov:shadow-card-hover">
+              <article className="group card relative flex h-full flex-col overflow-hidden rounded-3xl px-6 py-9 transition-all duration-300 hov:-translate-y-1.5 hov:border-electric/40 hov:shadow-card-hover sm:px-8 sm:py-10">
                 {/* Accent bar that fills on hover */}
                 <span
                   className="absolute inset-x-0 top-0 h-1 origin-left scale-x-0 bg-gradient-to-r from-electric to-cyan transition-transform duration-300 group-hov:scale-x-100"
@@ -113,7 +113,7 @@ export default function Services() {
                   <h3 className="font-display text-xl font-bold tracking-tight text-navy">
                     {s.title}
                   </h3>
-                  <span className="rounded-full bg-electric/10 px-2.5 py-0.5 text-xs font-semibold text-electric">
+                  <span className="shrink-0 whitespace-nowrap rounded-full bg-electric/10 px-3 py-1 text-xs font-semibold text-electric">
                     {s.points.length} services
                   </span>
                 </div>

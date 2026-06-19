@@ -26,7 +26,7 @@ const TESTIMONIALS = [
 
 export default function Testimonials() {
   return (
-    <section className="relative isolate overflow-hidden py-16 sm:py-20">
+    <section className="relative isolate overflow-hidden py-14 sm:py-20">
       {/* Background photo, full-bleed band */}
       <Image
         src={bgImg}

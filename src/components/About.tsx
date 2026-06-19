@@ -137,7 +137,7 @@ function MarqueeRow({
 
 export default function About() {
   return (
-    <section id="about" className="py-20 sm:py-28">
+    <section id="about" className="overflow-x-clip py-14 sm:py-28">
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
         {/* Intro */}
         <Reveal className="mx-auto max-w-3xl text-center">
@@ -157,11 +157,13 @@ export default function About() {
 
         {/* Stats */}
         <Reveal delay={0.05} className="mt-12">
-          <dl className="grid grid-cols-3 gap-4 sm:gap-5">
-            {STATS.map((s) => (
+          <dl className="grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-5">
+            {STATS.map((s, i) => (
               <div
                 key={s.label}
-                className="card rounded-2xl p-5 text-center sm:p-6"
+                className={`card rounded-2xl p-6 text-center sm:p-6 ${
+                  i === STATS.length - 1 ? "col-span-2 sm:col-span-1" : ""
+                }`}
               >
                 <dt className="font-display text-3xl font-extrabold text-electric sm:text-4xl">
                   {s.value}
@@ -282,8 +284,9 @@ export default function About() {
 
         </div>
 
-        {/* Full width marquee, breaks out of the container with a small edge gap */}
-        <div className="relative left-1/2 mt-10 w-screen -translate-x-1/2 px-5">
+        {/* Full width marquee, breaks out to the container edges (no w-screen
+            so it never overflows past the viewport / its scrollbar) */}
+        <div className="mt-10 -mx-5 sm:-mx-8">
           <div className="space-y-3.5 sm:space-y-4">
             <MarqueeRow items={SKILL_ROWS[0]} duration="52s" />
             <MarqueeRow items={SKILL_ROWS[1]} reverse duration="46s" />

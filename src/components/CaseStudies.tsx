@@ -137,7 +137,7 @@ export default function CaseStudies() {
                           {c.name}
                         </h3>
                         <span className="text-[0.7rem] font-semibold uppercase tracking-wider text-navy/40 sm:text-xs">
-                          {c.tag} Â· Case {String(i + 1).padStart(2, "0")}
+                          {c.tag} · Case {String(i + 1).padStart(2, "0")}
                         </span>
                       </div>
                     </div>

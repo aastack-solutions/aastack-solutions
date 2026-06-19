@@ -13,7 +13,7 @@ export default function CTABand({
   subtitle = "Tell us about your project and we'll get back to you within 24 hours.",
 }: CTABandProps) {
   return (
-    <section className="py-16 sm:py-24">
+    <section className="py-14 sm:py-24">
       <div className="mx-auto max-w-5xl px-5 sm:px-8">
         <Reveal>
           <div className="rounded-3xl border border-electric/15 bg-electric/[0.05] px-6 py-12 text-center sm:px-12 sm:py-16">

@@ -102,7 +102,7 @@ export default function Hero() {
               <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
             </span>
             Available for new projects
-            <span className="text-white/30">Â·</span>
+            <span className="text-white/30">·</span>
             <Sparkles size={13} className="text-electric-light" />
             AI, Web & SEO
           </motion.div>
@@ -111,7 +111,7 @@ export default function Hero() {
             variants={item}
             className="mt-6 text-xs font-semibold uppercase tracking-[0.28em] text-electric-light sm:text-sm"
           >
-            Software Â· AI Â· Digital Products
+            Software · AI · Digital Products
           </motion.p>
 
           <motion.h1

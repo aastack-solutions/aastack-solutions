@@ -47,6 +47,9 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 6.5rem;
+  /* Guard the scroll container itself: setting overflow-x on body alone is
+     not always enough, so clip horizontal overflow at the root too. */
+  overflow-x: hidden;
 }
 
 body {
@@ -55,6 +58,9 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
+  /* Belt-and-suspenders against stray decorative blurs that bleed past the
+     viewport edge on very small screens. */
+  max-width: 100%;
 }
 
 .font-display {

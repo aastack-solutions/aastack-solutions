@@ -301,10 +301,19 @@ export default function Navbar() {
                   href={CALENDLY_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-electric to-violet px-5 py-3.5 text-base font-semibold text-white shadow-soft"
+                  onClick={() => setOpen(false)}
+                  className="group relative flex items-center justify-center gap-2 overflow-hidden rounded-2xl bg-gradient-to-r from-electric to-violet px-5 py-4 text-base font-semibold text-white shadow-[0_12px_30px_-10px_rgba(31,127,214,0.7)] transition-all duration-300 active:scale-[0.98] hov:-translate-y-0.5 hov:shadow-[0_18px_40px_-12px_rgba(31,127,214,0.7)]"
                 >
-                  Get a free consultation
-                  <ArrowRight size={17} />
+                  {/* Shine sweep */}
+                  <span
+                    aria-hidden
+                    className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/25 to-transparent transition-transform duration-700 group-hov:translate-x-full"
+                  />
+                  <span className="relative">Get a free consultation</span>
+                  <ArrowRight
+                    size={17}
+                    className="relative transition-transform duration-300 group-hov:translate-x-0.5"
+                  />
                 </Link>
               </div>
             </motion.aside>
