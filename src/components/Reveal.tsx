@@ -1,8 +1,7 @@
 "use client";
 
-import { createContext, useContext } from "react";
-import { motion, type Variants } from "framer-motion";
-import type { ReactNode } from "react";
+import { useEffect, useRef, useState } from "react";
+import type { CSSProperties, ElementType, ReactNode } from "react";
 
 /** Direction the content travels in from while it fades up into place. */
 type Direction = "up" | "down" | "left" | "right" | "scale" | "fade";
@@ -11,31 +10,58 @@ type Tag = "div" | "ul" | "li" | "section" | "article";
 
 const OFFSET = 32;
 
-const HIDDEN: Record<Direction, { x?: number; y?: number; scale?: number }> = {
-  up: { y: OFFSET },
-  down: { y: -OFFSET },
-  left: { x: OFFSET },
-  right: { x: -OFFSET },
-  scale: { scale: 0.94 },
-  fade: {},
+// Starting transform for each direction. We animate transform + opacity only,
+// so the browser keeps the whole reveal on the compositor (off the main
+// thread) — no per-frame JS like an animation library would cost.
+const HIDDEN_TRANSFORM: Record<Direction, string> = {
+  up: `translateY(${OFFSET}px)`,
+  down: `translateY(-${OFFSET}px)`,
+  left: `translateX(${OFFSET}px)`,
+  right: `translateX(-${OFFSET}px)`,
+  scale: "scale(0.94)",
+  fade: "none",
 };
 
-const EASE = [0.22, 1, 0.36, 1] as const;
+const EASE = "cubic-bezier(0.22, 1, 0.36, 1)";
 
-const itemVariants = (direction: Direction): Variants => ({
-  hidden: { opacity: 0, ...HIDDEN[direction] },
-  visible: {
-    opacity: 1,
-    x: 0,
-    y: 0,
-    scale: 1,
-    transition: { duration: 0.6, ease: EASE },
-  },
-});
+/**
+ * Fires once when `ref` first scrolls into view. Falls back to "always shown"
+ * when IntersectionObserver is unavailable or the user prefers reduced motion.
+ */
+function useInView(amount: number) {
+  const ref = useRef<HTMLElement | null>(null);
+  const [shown, setShown] = useState(false);
 
-// True when a <Reveal> is rendered inside a <RevealGroup>, so it should let
-// the parent orchestrate the timing (cascade) instead of triggering itself.
-const GroupContext = createContext(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const reduced =
+      typeof window !== "undefined" &&
+      window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+
+    if (reduced || typeof IntersectionObserver === "undefined") {
+      // No scroll trigger available — reveal on the next frame.
+      const id = requestAnimationFrame(() => setShown(true));
+      return () => cancelAnimationFrame(id);
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setShown(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: amount, rootMargin: "0px 0px -8% 0px" },
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [amount]);
+
+  return { ref, shown };
+}
 
 type RevealProps = {
   children: ReactNode;
@@ -50,8 +76,7 @@ type RevealProps = {
 
 /**
  * Single scroll reveal. Fades + slides its content into place once it enters
- * the viewport. When wrapped in <RevealGroup> it instead animates as part of
- * the group's cascade (its own `delay` is handled by the group's stagger).
+ * the viewport, using a CSS transition (no JS runs per frame).
  */
 export default function Reveal({
   children,
@@ -61,32 +86,21 @@ export default function Reveal({
   direction = "up",
   amount = 0.2,
 }: RevealProps) {
-  const grouped = useContext(GroupContext);
-  const MotionTag = motion[as];
-  const variants = itemVariants(direction);
+  const { ref, shown } = useInView(amount);
+  const Tag = as as ElementType;
 
-  // Inside a group: no own trigger — the parent drives hidden → visible.
-  if (grouped) {
-    return (
-      <MotionTag className={className} variants={variants}>
-        {children}
-      </MotionTag>
-    );
-  }
+  const style: CSSProperties = {
+    opacity: shown ? 1 : 0,
+    transform: shown ? "none" : HIDDEN_TRANSFORM[direction],
+    transition: `opacity 0.6s ${EASE}, transform 0.6s ${EASE}`,
+    transitionDelay: shown ? `${delay}s` : "0s",
+    willChange: shown ? undefined : "opacity, transform",
+  };
 
   return (
-    <MotionTag
-      className={className}
-      variants={variants}
-      initial="hidden"
-      whileInView="visible"
-      // Low `amount` + a small bottom margin keeps reveals reliable on
-      // small screens where cards are tall and enter from the bottom.
-      viewport={{ once: true, amount, margin: "0px 0px -8% 0px" }}
-      transition={{ delay }}
-    >
+    <Tag ref={ref} className={className} style={style}>
       {children}
-    </MotionTag>
+    </Tag>
   );
 }
 
@@ -94,43 +108,21 @@ type RevealGroupProps = {
   children: ReactNode;
   className?: string;
   as?: Tag;
-  /** Gap between each child's reveal, in seconds. */
+  /** Kept for API compatibility; per-child `delay` props drive the cascade. */
   stagger?: number;
-  /** Fraction of the group that must be visible before the cascade starts. */
   amount?: number;
 };
 
 /**
- * Stagger container for a grid/row of cards. Triggers once when it scrolls
- * into view, then reveals each direct <Reveal> child one after another for a
- * smooth cascade. Drop it in place of the wrapping grid <div>.
+ * Layout container for a grid/row of <Reveal> cards. Each child reveals itself
+ * as it enters view; the cascade comes from the per-child `delay` props the
+ * call sites already pass. This is just the wrapping element now.
  */
 export function RevealGroup({
   children,
   className,
   as = "div",
-  stagger = 0.1,
-  amount = 0.15,
 }: RevealGroupProps) {
-  const MotionTag = motion[as];
-  const container: Variants = {
-    hidden: {},
-    visible: {
-      transition: { staggerChildren: stagger, delayChildren: 0.05 },
-    },
-  };
-
-  return (
-    <GroupContext.Provider value={true}>
-      <MotionTag
-        className={className}
-        variants={container}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount, margin: "0px 0px -8% 0px" }}
-      >
-        {children}
-      </MotionTag>
-    </GroupContext.Provider>
-  );
+  const Tag = as as ElementType;
+  return <Tag className={className}>{children}</Tag>;
 }

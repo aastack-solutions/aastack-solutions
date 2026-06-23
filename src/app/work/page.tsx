@@ -4,21 +4,44 @@ import { ArrowRight } from "lucide-react";
 import PageHero from "@/components/PageHero";
 import Projects from "@/components/Projects";
 import CTABand from "@/components/CTABand";
+import JsonLd from "@/components/JsonLd";
 import { CALENDLY_URL } from "@/data/site";
-import heroImg from "../../../public/images/hero.jpg";
+import { pageMetadata, SITE_NAME, SITE_URL } from "@/data/seo";
+import heroImg from "../../../public/images/hero.webp";
 
-export const metadata: Metadata = {
-  title: "Our Work",
+export const metadata: Metadata = pageMetadata({
+  title: "Our Work | Web & AI Projects Portfolio — AAStack Solutions",
   description:
-    "A look at real products AAStack has designed, built, and shipped, including AI tools, web apps, mobile apps, and SEO campaigns built to perform and scale.",
+    "Browse AAStack's portfolio of delivered projects — custom websites, mobile apps, AI automation systems, and SEO campaigns built for startups and businesses.",
+  keywords: [
+    "AAStack portfolio",
+    "web development projects",
+    "AI automation projects",
+    "mobile app portfolio Pakistan",
+    "software agency work",
+  ],
+  path: "/work",
+});
+
+const workSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: "Our Work — AAStack Solutions Portfolio",
+  description:
+    "Delivered projects by AAStack Solutions — custom websites, mobile apps, AI automation systems, and SEO campaigns.",
+  url: `${SITE_URL}/work`,
+  isPartOf: { "@type": "WebSite", name: SITE_NAME, url: SITE_URL },
+  about: { "@type": "Organization", name: SITE_NAME },
 };
 
 export default function WorkPage() {
   return (
     <main>
+      <JsonLd data={workSchema} />
       <PageHero
         eyebrow="Our Work"
         image={heroImg}
+        imageAlt="AAStack Solutions portfolio of web, mobile app and AI automation projects"
         title={
           <>
             Work that{" "}

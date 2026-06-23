@@ -3,12 +3,15 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import PageHero from "@/components/PageHero";
 import FAQ from "@/components/FAQ";
+import JsonLd from "@/components/JsonLd";
 import { FAQS } from "@/data/faqs";
 import CTABand from "@/components/CTABand";
 import { CALENDLY_URL } from "@/data/site";
-import heroImg from "../../../public/images/faqs-hero.jpg";
+import { pageMetadata } from "@/data/seo";
+import heroImg from "../../../public/images/faqs-hero.webp";
 
-// Structured data so search engines can show these as rich FAQ results.
+// Structured data (built from the real FAQ content) so search engines can show
+// these as rich FAQ results.
 const faqJsonLd = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
@@ -19,27 +22,33 @@ const faqJsonLd = {
   })),
 };
 
-export const metadata: Metadata = {
-  title: "FAQs",
+export const metadata: Metadata = pageMetadata({
+  title: "FAQs | Common Questions About AAStack Services & Process",
   description:
-    "Answers to the most common questions about working with AAStack, pricing, timelines, AI, SEO, and ongoing support.",
-};
+    "Got questions? Find answers about AAStack's development process, timelines, pricing approach, technology stack, and how we work with clients worldwide.",
+  keywords: [
+    "AAStack FAQ",
+    "web development questions",
+    "how AI automation works",
+    "software agency process",
+    "hire developer Pakistan",
+  ],
+  path: "/faqs",
+});
 
 export default function FAQsPage() {
   return (
     <main>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
-      />
+      <JsonLd data={faqJsonLd} />
       <PageHero
         eyebrow="Frequently Asked Questions"
         image={heroImg}
+        imageAlt="AAStack Solutions FAQs — answers about web development, AI automation and SEO"
         title={
           <>
-            Questions?{" "}
+            Frequently asked questions,{" "}
             <span className="bg-gradient-to-r from-electric-light via-cyan to-electric-light bg-clip-text text-transparent">
-              Answered.
+              answered
             </span>
           </>
         }

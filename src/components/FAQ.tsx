@@ -2,7 +2,6 @@
 
 import { useMemo, useState } from "react";
 import { ChevronDown, Search, MessageCircleQuestion } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import Reveal from "./Reveal";
 import { FAQS, CATEGORIES, type Category } from "@/data/faqs";
@@ -60,16 +59,20 @@ export default function FAQ() {
                       : "text-navy/60 hover:text-navy"
                   }`}
                 >
-                  {isActive && (
-                    <motion.span
-                      layoutId="faq-pill"
-                      className="absolute inset-0 -z-10 rounded-full bg-gradient-to-r from-electric to-violet"
-                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                    />
-                  )}
-                  {!isActive && (
-                    <span className="absolute inset-0 -z-10 rounded-full bg-navy/[0.05] ring-1 ring-navy/10" />
-                  )}
+                  <span
+                    aria-hidden
+                    className={`absolute inset-0 -z-10 rounded-full transition-opacity duration-300 ${
+                      isActive
+                        ? "bg-gradient-to-r from-electric to-violet opacity-100"
+                        : "opacity-0"
+                    }`}
+                  />
+                  <span
+                    aria-hidden
+                    className={`absolute inset-0 -z-10 rounded-full bg-navy/[0.05] ring-1 ring-navy/10 transition-opacity duration-300 ${
+                      isActive ? "opacity-0" : "opacity-100"
+                    }`}
+                  />
                   {c}
                 </button>
               );
@@ -79,63 +82,54 @@ export default function FAQ() {
 
         {/* Accordion */}
         <div className="mt-10 space-y-3">
-          <AnimatePresence mode="popLayout" initial={false}>
-            {filtered.map((f) => {
-              const isOpen = open === f.q;
-              return (
-                <motion.div
-                  key={f.q}
-                  layout
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -8 }}
-                  transition={{ duration: 0.2 }}
-                  className={`card overflow-hidden rounded-2xl transition-colors ${
-                    isOpen ? "border-electric/40" : "hover:border-navy/20"
+          {filtered.map((f) => {
+            const isOpen = open === f.q;
+            return (
+              <div
+                key={f.q}
+                className={`card overflow-hidden rounded-2xl transition-colors ${
+                  isOpen ? "border-electric/40" : "hover:border-navy/20"
+                }`}
+              >
+                <button
+                  type="button"
+                  onClick={() => setOpen(isOpen ? null : f.q)}
+                  aria-expanded={isOpen}
+                  className="flex w-full items-center justify-between gap-4 px-5 py-5 text-left sm:px-6"
+                >
+                  <span className="flex flex-col">
+                    <span className="text-xs font-semibold uppercase tracking-[0.14em] text-electric">
+                      {f.category}
+                    </span>
+                    <span className="mt-1 font-display text-base font-semibold text-navy sm:text-lg">
+                      {f.q}
+                    </span>
+                  </span>
+                  <span
+                    className={`grid h-8 w-8 shrink-0 place-items-center rounded-full transition-all duration-300 ${
+                      isOpen
+                        ? "rotate-180 bg-electric text-white"
+                        : "bg-navy/10 text-navy/70"
+                    }`}
+                  >
+                    <ChevronDown size={18} />
+                  </span>
+                </button>
+                {/* CSS-only height animation via grid-template-rows 0fr → 1fr */}
+                <div
+                  className={`grid transition-[grid-template-rows] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                    isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
                   }`}
                 >
-                  <button
-                    type="button"
-                    onClick={() => setOpen(isOpen ? null : f.q)}
-                    aria-expanded={isOpen}
-                    className="flex w-full items-center justify-between gap-4 px-5 py-5 text-left sm:px-6"
-                  >
-                    <span className="flex flex-col">
-                      <span className="text-xs font-semibold uppercase tracking-[0.14em] text-electric">
-                        {f.category}
-                      </span>
-                      <span className="mt-1 font-display text-base font-semibold text-navy sm:text-lg">
-                        {f.q}
-                      </span>
-                    </span>
-                    <span
-                      className={`grid h-8 w-8 shrink-0 place-items-center rounded-full transition-all duration-300 ${
-                        isOpen
-                          ? "rotate-180 bg-electric text-white"
-                          : "bg-navy/10 text-navy/70"
-                      }`}
-                    >
-                      <ChevronDown size={18} />
-                    </span>
-                  </button>
-                  <AnimatePresence initial={false}>
-                    {isOpen && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                      >
-                        <p className="px-5 pb-5 text-[0.95rem] leading-relaxed text-navy/65 sm:px-6">
-                          {f.a}
-                        </p>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </motion.div>
-              );
-            })}
-          </AnimatePresence>
+                  <div className="overflow-hidden">
+                    <p className="px-5 pb-5 text-[0.95rem] leading-relaxed text-navy/65 sm:px-6">
+                      {f.a}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
 
           {filtered.length === 0 && (
             <Reveal className="card rounded-2xl px-6 py-12 text-center">

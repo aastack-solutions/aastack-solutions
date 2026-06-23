@@ -5,6 +5,7 @@ import Aurora from "@/components/Aurora";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import MobileHover from "@/components/MobileHover";
+import { OG_IMAGE, SITE_NAME, SITE_URL } from "@/data/seo";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -19,40 +20,32 @@ const sora = Sora({
   weight: ["500", "600", "700", "800"],
 });
 
-const SITE_URL = "https://aastack.dev";
-
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "AAStack Solutions | Build Smarter. Launch Faster. Rank Higher.",
-    template: "%s | AAStack Solutions",
+    default: `${SITE_NAME} | Build Smarter. Launch Faster. Rank Higher.`,
+    template: `%s | ${SITE_NAME}`,
   },
   description:
-    "AAStack helps businesses grow with custom AI solutions, modern web & mobile apps, and SEO that actually drives traffic.",
-  keywords: [
-    "AI engineering",
-    "AI chatbots",
-    "web development",
-    "mobile app development",
-    "Flutter",
-    "Firebase",
-    "SEO",
-    "Next.js agency",
-  ],
-  authors: [{ name: "AAStack" }],
+    "AAStack Solutions — custom web apps, mobile apps, AI automation, and SEO for businesses that want to grow.",
+  authors: [{ name: SITE_NAME, url: SITE_URL }],
+  creator: SITE_NAME,
+  publisher: SITE_NAME,
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true },
+  },
   openGraph: {
-    title: "AAStack | Build Smarter. Launch Faster. Rank Higher.",
-    description:
-      "Custom AI solutions, modern web & mobile apps, and SEO that drives real traffic.",
-    url: SITE_URL,
-    siteName: "AAStack",
     type: "website",
+    locale: "en_PK",
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    images: [OG_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
-    title: "AAStack | Build Smarter. Launch Faster. Rank Higher.",
-    description:
-      "Custom AI solutions, modern web & mobile apps, and SEO that drives real traffic.",
+    images: [OG_IMAGE.url],
   },
 };
 

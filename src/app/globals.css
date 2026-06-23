@@ -128,13 +128,198 @@ body {
   );
 }
 
+/* ─────────────────────────────────────────────────────────────
+   CSS animations (replaces framer-motion).
+   Everything here animates transform/opacity only, so it runs on
+   the compositor and keeps the main thread free (low TBT).
+   ──────────────────────────────────────────────────────────── */
+
+/* One-shot entrance: fade + slide up. Stagger via inline animation-delay. */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.anim-fade-up {
+  opacity: 0;
+  animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Hero background: fade in while easing down from a slight zoom. */
+@keyframes hero-in {
+  from {
+    opacity: 0;
+    transform: scale(1.12);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.anim-hero-in {
+  animation: hero-in 1.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Slow ambient zoom that loops forever on the hero photo. */
+@keyframes ambient-zoom {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.06);
+  }
+}
+.anim-ambient-zoom {
+  animation: ambient-zoom 22s ease-in-out infinite;
+}
+
+/* Floating brand glows. */
+@keyframes float-a {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateY(-26px);
+    opacity: 0.8;
+  }
+}
+@keyframes float-b {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.45;
+  }
+  50% {
+    transform: translateY(28px);
+    opacity: 0.75;
+  }
+}
+.anim-float-a {
+  animation: float-a 11s ease-in-out infinite;
+}
+.anim-float-b {
+  animation: float-b 13s ease-in-out infinite 1.5s;
+}
+
+/* Hero scroll cue: fade the wrapper in, bob the inner dot forever. */
+@keyframes cue-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.anim-cue-in {
+  animation: cue-in 0.8s ease 1.4s both;
+}
+@keyframes cue-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(8px);
+    opacity: 0.3;
+  }
+}
+.anim-cue-bob {
+  animation: cue-bob 1.8s ease-in-out infinite;
+}
+
+/* Contact "message sent" confirmation. */
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.anim-pop-in {
+  animation: pop-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes pop-icon {
+  0% {
+    transform: scale(0) rotate(-20deg);
+  }
+  70% {
+    transform: scale(1.08) rotate(4deg);
+  }
+  100% {
+    transform: scale(1) rotate(0);
+  }
+}
+.anim-pop-icon {
+  animation: pop-icon 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both;
+}
+
+/* Mobile menu links sliding in. */
+@keyframes drawer-link {
+  from {
+    opacity: 0;
+    transform: translateX(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.anim-drawer-link {
+  animation: drawer-link 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Reading-progress bar driven entirely by scroll position — no JS, no
+   per-frame work. Falls back to an invisible bar where unsupported. */
+@keyframes progress-grow {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+.scroll-progress {
+  transform: scaleX(0);
+}
+@supports (animation-timeline: scroll()) {
+  .scroll-progress {
+    animation: progress-grow linear both;
+    animation-timeline: scroll(root block);
+  }
+}
+
 /* Subtle scroll reveal handled in Reveal.tsx */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
-  .marquee-track {
+  .marquee-track,
+  .anim-fade-up,
+  .anim-hero-in,
+  .anim-ambient-zoom,
+  .anim-float-a,
+  .anim-float-b,
+  .anim-cue-in,
+  .anim-cue-bob,
+  .anim-pop-in,
+  .anim-pop-icon,
+  .anim-drawer-link {
     animation: none;
+  }
+  .anim-fade-up {
+    opacity: 1;
   }
 }
 

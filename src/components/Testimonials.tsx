@@ -1,7 +1,7 @@
 ﻿import Image from "next/image";
 import { Quote, User } from "lucide-react";
 import Reveal, { RevealGroup } from "./Reveal";
-import bgImg from "../../public/images/testimonials.jpg";
+import bgImg from "../../public/images/testimonials.webp";
 
 const TESTIMONIALS = [
   {
@@ -30,11 +30,10 @@ export default function Testimonials() {
       {/* Background photo, full-bleed band */}
       <Image
         src={bgImg}
-        alt=""
+        alt="AAStack Solutions client testimonials background"
         fill
         sizes="100vw"
         placeholder="blur"
-        aria-hidden
         className="absolute inset-0 -z-20 object-cover"
       />
       {/* Dark navy overlay so the cards and text stay readable */}
