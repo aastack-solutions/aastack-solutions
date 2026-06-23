@@ -1,24 +1,8 @@
-﻿"use client";
-
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
 import { ArrowRight, Star, Sparkles } from "lucide-react";
-import heroImg from "../../public/images/hero.jpg";
+import heroImg from "../../public/images/hero.webp";
 import { CALENDLY_URL } from "@/data/site";
-
-const container = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.12, delayChildren: 0.15 } },
-};
-const item = {
-  hidden: { opacity: 0, y: 22 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] as const },
-  },
-};
 
 export default function Hero() {
   return (
@@ -27,28 +11,20 @@ export default function Hero() {
       className="relative isolate flex min-h-[92vh] flex-col overflow-hidden"
     >
       {/* Background image with a slow ambient zoom */}
-      <motion.div
-        initial={{ scale: 1.12, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
-        className="absolute inset-0 z-0"
-      >
-        <motion.div
-          animate={{ scale: [1, 1.06, 1] }}
-          transition={{ duration: 22, ease: "easeInOut", repeat: Infinity }}
-          className="absolute inset-0"
-        >
+      <div className="anim-hero-in absolute inset-0 z-0">
+        <div className="anim-ambient-zoom absolute inset-0">
           <Image
             src={heroImg}
-            alt=""
+            alt="AAStack Solutions — web development, AI automation & SEO agency in Pakistan"
+            title="AAStack Solutions — Build Smarter. Launch Faster. Rank Higher."
             placeholder="blur"
             priority
             sizes="100vw"
             className="object-cover"
             fill
           />
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
 
       {/* Brand overlays: darken for readability + fade into the page below */}
       <div
@@ -61,17 +37,13 @@ export default function Hero() {
       />
 
       {/* Floating brand glows for depth */}
-      <motion.div
+      <div
         aria-hidden
-        animate={{ y: [0, -26, 0], opacity: [0.5, 0.8, 0.5] }}
-        transition={{ duration: 11, ease: "easeInOut", repeat: Infinity }}
-        className="absolute -left-24 top-24 z-0 h-72 w-72 rounded-full bg-electric/30 blur-[120px]"
+        className="anim-float-a absolute -left-24 top-24 z-0 h-72 w-72 rounded-full bg-electric/30 blur-[120px]"
       />
-      <motion.div
+      <div
         aria-hidden
-        animate={{ y: [0, 28, 0], opacity: [0.45, 0.75, 0.45] }}
-        transition={{ duration: 13, ease: "easeInOut", repeat: Infinity, delay: 1.5 }}
-        className="absolute -right-24 bottom-28 z-0 h-80 w-80 rounded-full bg-violet/30 blur-[130px]"
+        className="anim-float-b absolute -right-24 bottom-28 z-0 h-80 w-80 rounded-full bg-violet/30 blur-[130px]"
       />
 
       {/* Subtle dot grid, faded toward the edges */}
@@ -91,11 +63,11 @@ export default function Hero() {
 
       {/* Content */}
       <div className="relative z-10 mx-auto flex w-full max-w-4xl flex-1 flex-col items-center justify-center px-5 pt-28 pb-32 text-center sm:px-8">
-        <motion.div variants={container} initial="hidden" animate="visible">
+        <div>
           {/* Glass badge */}
-          <motion.div
-            variants={item}
-            className="mx-auto inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-1.5 text-xs font-medium text-white/90 backdrop-blur-md sm:text-sm"
+          <div
+            className="anim-fade-up mx-auto inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-1.5 text-xs font-medium text-white/90 backdrop-blur-md sm:text-sm"
+            style={{ animationDelay: "0.15s" }}
           >
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
@@ -105,36 +77,36 @@ export default function Hero() {
             <span className="text-white/30">·</span>
             <Sparkles size={13} className="text-electric-light" />
             AI, Web & SEO
-          </motion.div>
+          </div>
 
-          <motion.p
-            variants={item}
-            className="mt-6 text-xs font-semibold uppercase tracking-[0.28em] text-electric-light sm:text-sm"
+          <p
+            className="anim-fade-up mt-6 text-xs font-semibold uppercase tracking-[0.28em] text-electric-light sm:text-sm"
+            style={{ animationDelay: "0.27s" }}
           >
             Software · AI · Digital Products
-          </motion.p>
+          </p>
 
-          <motion.h1
-            variants={item}
-            className="mt-4 font-display text-4xl font-bold leading-[1.06] tracking-tight text-white sm:text-6xl lg:text-7xl"
+          <h1
+            className="anim-fade-up mt-4 font-display text-4xl font-bold leading-[1.06] tracking-tight text-white sm:text-6xl lg:text-7xl"
+            style={{ animationDelay: "0.39s" }}
           >
             Build smarter. Launch faster.{" "}
             <span className="bg-gradient-to-r from-electric-light via-cyan to-electric-light bg-clip-text text-transparent">
               Rank higher.
             </span>
-          </motion.h1>
+          </h1>
 
-          <motion.p
-            variants={item}
-            className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/75 sm:text-xl"
+          <p
+            className="anim-fade-up mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/75 sm:text-xl"
+            style={{ animationDelay: "0.51s" }}
           >
             AAStack Solutions helps businesses grow with custom AI, modern web
             and mobile apps, and SEO that actually drives traffic.
-          </motion.p>
+          </p>
 
-          <motion.div
-            variants={item}
-            className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row"
+          <div
+            className="anim-fade-up mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row"
+            style={{ animationDelay: "0.63s" }}
           >
             <Link
               href={CALENDLY_URL}
@@ -154,11 +126,11 @@ export default function Hero() {
             >
               View our work
             </Link>
-          </motion.div>
+          </div>
 
-          <motion.div
-            variants={item}
-            className="mt-9 flex flex-col items-center justify-center gap-2 sm:flex-row sm:gap-3"
+          <div
+            className="anim-fade-up mt-9 flex flex-col items-center justify-center gap-2 sm:flex-row sm:gap-3"
+            style={{ animationDelay: "0.75s" }}
           >
             <span className="flex gap-0.5">
               {Array.from({ length: 5 }).map((_, i) => (
@@ -169,26 +141,19 @@ export default function Hero() {
               Trusted by startups and businesses to build and scale their
               digital products.
             </span>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       </div>
 
       {/* Scroll cue */}
-      <motion.div
+      <div
         aria-hidden
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.4, duration: 0.8 }}
-        className="absolute inset-x-0 bottom-7 z-10 flex justify-center"
+        className="anim-cue-in absolute inset-x-0 bottom-7 z-10 flex justify-center"
       >
         <span className="flex h-9 w-5 items-start justify-center rounded-full border border-white/30 p-1">
-          <motion.span
-            animate={{ y: [0, 8, 0], opacity: [1, 0.3, 1] }}
-            transition={{ duration: 1.8, ease: "easeInOut", repeat: Infinity }}
-            className="h-1.5 w-1 rounded-full bg-white/80"
-          />
+          <span className="anim-cue-bob h-1.5 w-1 rounded-full bg-white/80" />
         </span>
-      </motion.div>
+      </div>
     </section>
   );
 }

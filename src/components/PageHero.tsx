@@ -1,8 +1,5 @@
-"use client";
-
 import type { ReactNode } from "react";
 import Image, { type StaticImageData } from "next/image";
-import { motion } from "framer-motion";
 import Reveal from "./Reveal";
 
 type PageHeroProps = {
@@ -10,6 +7,8 @@ type PageHeroProps = {
   title: ReactNode;
   subtitle?: string;
   image: StaticImageData;
+  /** Descriptive alt text for the banner photo (improves image SEO). */
+  imageAlt: string;
   /** Optional content rendered under the subtitle (e.g. buttons). */
   children?: ReactNode;
 };
@@ -19,6 +18,7 @@ export default function PageHero({
   title,
   subtitle,
   image,
+  imageAlt,
   children,
 }: PageHeroProps) {
   return (
@@ -29,29 +29,20 @@ export default function PageHero({
       {/* Full-bleed dark banner, like the home hero */}
       <div className="relative isolate flex min-h-[60vh] items-center overflow-hidden">
         {/* Background image with a slow ambient zoom, like the home hero */}
-        <motion.div
-          initial={{ scale: 1.12, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
-          className="absolute inset-0 -z-10"
-        >
-          <motion.div
-            animate={{ scale: [1, 1.06, 1] }}
-            transition={{ duration: 22, ease: "easeInOut", repeat: Infinity }}
-            className="absolute inset-0"
-          >
+        <div className="anim-hero-in absolute inset-0 -z-10">
+          <div className="anim-ambient-zoom absolute inset-0">
             <Image
               src={image}
-              alt=""
+              alt={imageAlt}
+              title={imageAlt}
               placeholder="blur"
               priority
               sizes="100vw"
               className="object-cover"
               fill
-              aria-hidden
             />
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
 
         {/* Blackish overlay: light enough to keep the photo visible */}
         <div

@@ -7,25 +7,37 @@ import CoreValues from "@/components/CoreValues";
 import TechStack from "@/components/TechStack";
 import Testimonials from "@/components/Testimonials";
 import CTABand from "@/components/CTABand";
-import heroImg from "../../../public/images/about-team.jpg";
+import JsonLd from "@/components/JsonLd";
+import { organizationSchema, pageMetadata } from "@/data/seo";
+import heroImg from "../../../public/images/about-team.webp";
 
-export const metadata: Metadata = {
-  title: "About",
+export const metadata: Metadata = pageMetadata({
+  title: "About AAStack Solutions | AI & Web Development Team — Pakistan",
   description:
-    "Meet AAStack, a team passionate about building great digital products with AI, modern web & mobile apps, and SEO that delivers real results.",
-};
+    "Meet AAStack Solutions — a digital product studio in Pakistan delivering high-quality web apps, mobile apps, AI automation, and SEO with a focus on real, measurable results.",
+  keywords: [
+    "about AAStack",
+    "web development team Pakistan",
+    "AI automation team",
+    "digital product studio Karachi",
+    "software agency Pakistan",
+  ],
+  path: "/about",
+});
 
 export default function AboutPage() {
   return (
     <main>
+      <JsonLd data={organizationSchema} />
       <PageHero
         eyebrow="About AAStack Solutions"
         image={heroImg}
+        imageAlt="AAStack Solutions team working on web and AI projects"
         title={
           <>
-            Who We{" "}
+            Who we are at{" "}
             <span className="bg-gradient-to-r from-electric-light via-cyan to-electric-light bg-clip-text text-transparent">
-              Are
+              AAStack Solutions
             </span>
           </>
         }

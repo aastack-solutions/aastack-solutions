@@ -10,7 +10,6 @@ import {
   ArrowUpRight,
   ChevronDown,
 } from "lucide-react";
-import { motion } from "framer-motion";
 import LinkedinIcon from "./LinkedinIcon";
 import ChatbotLottie from "./ChatbotLottie";
 import Reveal from "./Reveal";
@@ -106,20 +105,10 @@ export default function Contact() {
                 className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-electric via-violet to-electric"
               />
               {sent ? (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.96 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                  className="flex h-full min-h-[20rem] flex-col items-center justify-center text-center"
-                >
-                  <motion.span
-                    initial={{ scale: 0, rotate: -20 }}
-                    animate={{ scale: 1, rotate: 0 }}
-                    transition={{ delay: 0.1, type: "spring", stiffness: 200, damping: 14 }}
-                    className="flex h-20 w-20 items-center justify-center rounded-full bg-electric/10"
-                  >
+                <div className="anim-pop-in flex h-full min-h-[20rem] flex-col items-center justify-center text-center">
+                  <span className="anim-pop-icon flex h-20 w-20 items-center justify-center rounded-full bg-electric/10">
                     <CheckCircle2 size={44} className="text-electric" />
-                  </motion.span>
+                  </span>
                   <h3 className="mt-5 font-display text-2xl font-bold">
                     Message sent!
                   </h3>
@@ -134,7 +123,7 @@ export default function Contact() {
                   >
                     Send another
                   </button>
-                </motion.div>
+                </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-5">
                   <div className="mb-1">

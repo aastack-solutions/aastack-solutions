@@ -35,7 +35,7 @@ export default function Footer() {
           <div className="col-span-2 sm:col-span-3 lg:col-span-4">
             <Link href="/" className="inline-flex items-center">
               <Image
-                src="/logo-mark.png"
+                src="/logo-mark.webp"
                 alt="AAStack Solutions"
                 width={218}
                 height={223}

@@ -9,8 +9,7 @@ export const CONTACT = {
   phone: "0325085467",
   /** E.164-ish form for tel: links (PK country code). */
   phoneHref: "+923250854670",
-  /** Dummy office address — replace with the real one when available. */
-  address: "Office 12, Tech Avenue, Gulberg III, Lahore, Pakistan",
+  address: "Shahrah-e-Faisal, Karachi, Pakistan",
   hours: "Mon – Fri, 9:00 AM – 6:00 PM (PKT)",
 } as const;
 

@@ -18,7 +18,7 @@ import {
   SiFigma,
 } from "react-icons/si";
 import Reveal from "./Reveal";
-import stackLogo from "../../public/stack.png";
+import stackLogo from "../../public/stack.webp";
 
 type Tech = {
   icon: IconType;
@@ -118,7 +118,7 @@ export default function TechStack() {
             {/* Center brand logo */}
             <Image
               src={stackLogo}
-              alt="AAStack Solutions"
+              alt="AAStack Solutions technology stack — React, Next.js, Flutter, Python, n8n"
               priority
               className="pointer-events-none absolute left-1/2 top-1/2 h-36 w-36 -translate-x-1/2 -translate-y-1/2 object-contain drop-shadow-[0_12px_30px_rgba(11,31,77,0.25)]"
             />
@@ -128,7 +128,7 @@ export default function TechStack() {
           <div className="mt-12 flex flex-col items-center sm:hidden">
             <Image
               src={stackLogo}
-              alt="AAStack Solutions"
+              alt="AAStack Solutions technology stack — React, Next.js, Flutter, Python, n8n"
               className="h-24 w-24 object-contain drop-shadow-[0_10px_24px_rgba(11,31,77,0.22)]"
             />
             <div className="mt-8 flex flex-wrap items-center justify-center gap-5">
